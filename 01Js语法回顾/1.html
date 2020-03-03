@@ -21,6 +21,39 @@
     console.log(b.name)
     console.log(b.func)
     console.log(b.func())
+
+    // js中函数自身的作用域在声明的地方不在调用的地方,先去f2函数中找，找不到去全局找。
+    var v = 1;
+    function f1(f2){
+        var v = 2;
+        //回调函数
+        f2();
+    }
+
+    function f2() {
+        console.log(v);
+    }
+
+    f1(f2);
+
+    //闭包:作用域链下，c变量常驻内存，未被释放
+    var c = 1;
+    function f3(f) {
+        var c = 2;
+        function f4() {
+            console.log(++c);
+        }
+        return f4;
+    }
+
+    var f = f3();
+    f();
+    f();
+    f();
+    f();
+
+
+
 </script>
 </body>
 </html>

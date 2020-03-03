@@ -52,6 +52,32 @@
     f();
     f();
 
+    //原型与原型链
+    function Person(){
+
+    }
+
+    var person = new Person();
+    person.name = 'kerr';
+    console.log(person.name);
+
+    //每一个函数都有一个prototype属性,构造函数通过prototype指向实例原型
+    Person.prototype.name = 'sun';
+    var person1 = new Person();
+    var person2 = new Person();
+    console.log(person1.name);
+    console.log(person2.name);
+
+    //javascript对象有一个属性叫__proto__，通过这个属性指向实例原型
+    console.log(person1.__proto__ === Person.prototype);
+
+    //每个原型都有一个constructor属性指向构造函数
+    console.log(Person.prototype.constructor === Person);
+
+    //ES5新语法获取对象原型
+    console.log(Object.getPrototypeOf(person1) === Person.prototype)
+
+
 
 
 </script>

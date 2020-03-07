@@ -7,6 +7,6 @@ server.listen(8080,function () {
 
 server.on('request',function (res,rep) {
     console.log(res.method);
-    rep.write("OK");
+    rep.write("OK!");
     rep.end();
 });

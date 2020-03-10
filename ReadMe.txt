@@ -16,6 +16,15 @@
                 每个实例原型都有一个constructor属性指向构造函数
                 ES5通过getPrototypeOf获取对象的实例原型
 
+          call,apply,arguments:
+            call跟apply作用相同，obj2可以通过call方法调用obj1的方法，类似于继承,第一个参数都是上下文对象,其余参数：call方法是参数列表，apply方法是参数数组
+            obj1.method.call(obj2,arg1,arg2)
+            实例：
+            function Person(){this.name="lilei"}
+            function Student(){Person.call(this)}
+            var student = new Student();
+            console.log(student.name);
+            arguments对象代表形参数组列表
     JSON.stringify跟JSON.parse
         JSON.stringify:将js对象转换为JSON字符串
         JSON.parse:将JSON字符串解析为js对象
@@ -50,6 +59,116 @@
        }
        xhr.open(method,url,async);
        xhr.send();
+
+    ES6基础语法：
+      ES6 == ECMAScript2015
+      1.let声明变量：变量不会提前声明,拥有块级作用域
+           变量声明未提前demo：
+           <script>
+                 var scope = "global";
+                 function fn(){
+                    console.log(scope);//result:undefined
+                    var scope = "local";
+                    console.log(scope);//result:local;
+                 }
+                 fn();
+            </script>
+            解析流程：
+            <script>
+                  var scope = "global";
+                  function fn(){
+                     var scope;//提前声明了局部变量
+                     console.log(scope);//result:undefined
+                     scope = "local";
+                     console.log(scope);//result:local;
+                  }
+                  fn();
+            </script>
+            <script>
+                 let scope = "global";
+                 function fn(){
+                    console.log(scope);//报错
+                    let scope = "local";
+                    console.log(scope);//result:local;
+                 }
+                 fn();
+            </script>
+            拥有块级作用域：
+            <script>
+                 for(let i=1;i<5;i++){} console.log(i); 获取不到i
+                 for(var i=1;i<5;i++){} console.log(i); 可以获取到i
+            </script>
+      2.const声明常量:地址值不变
+      3.模版字符:
+        var i = 1;
+        var a = `abc
+         def${i+5}
+         ghk
+        `;
+      4.解构赋值：
+           字符串解构赋值：
+           var [a,b,c] = 'def';
+           数组解构赋值：
+           var [a,b] = ['def','ghk'];
+           对象解构赋值：键必须一致
+           var obj = {name:'lisi',age:22};
+           var {name,age} = obj;
+      5.对象方法及属性简写
+          方法简写：
+              var obj = {
+                 a:1,
+                 b:2,
+                 func
+              }
+
+              function func(){
+                return this.a+this.b;
+              }
+
+              console.log(obj.func());
+           属性简写：
+           var name = 'lisi';
+           var obj = {name};
+           console.log(obj.name);
+      6.promise解决回调地狱：
+        var fs = require('fs');
+        var promise = new Promise(function(resolve,reject){
+            fs.readFile(file,encode,function(err,data){
+                err ? reject(err):resolve(data)
+            })
+        });
+
+        promise.then(function (data) {
+          //then第一个函数是成功的回调，参数是resolve(err)中的data
+          console.log('成功：' + data); // 若成功，运行结果：成功：111
+        }, function (err) {
+          //then第二个函数是失败的回调函数，参数是reject(err)中的err错误对象
+          console.log('失败：' + err);
+        });
+      7.箭头函数：
+        var a = (s1,s2)=>{
+            return s1+s2;
+        }
+        只有一个形参,可以省略括号
+        var a = s1=>{
+           return s1;
+        }
+        如果没有形参,不可以省略括号
+        var a = ()=>{
+           return s1;
+        }
+        如果只有函数体只有return，可以简写为：
+        var a = (s1,s2)=>s1+s2
+
+
+
+
+
+
+
+
+
+
 
 
 

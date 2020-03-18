@@ -126,6 +126,15 @@
               }
 
               console.log(obj.func());
+           方法简写2：
+           var obj = {
+              func(s1,s2){
+                 console.log("Hello");
+              },
+              func2:(s1,s2)=>{
+                 console.log(s1+s2);
+              }
+           }
            属性简写：
            var name = 'lisi';
            var obj = {name};

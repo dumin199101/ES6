@@ -169,17 +169,27 @@
         如果只有函数体只有return，可以简写为：
         var a = (s1,s2)=>s1+s2
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    Express框架：
+      用到的组件：
+          1.express
+          2.express-art-template
+          3.art-template
+          4.formidable:表单上传组件
+          5.cookie-session
+      管理静态资源：
+         app.use(express.static('public'))
+      使用模板引擎：
+         app.engine('html',require('express-art-template'))
+      使用外置路由：
+         app.use(require('./route'))
+         route.js:
+             const express = require('express');
+             //外置路由
+             const router = express.Router();
+             router.get("/",(request,response)=>{
+                 response.end("Hello Node!");
+             });
+             //导出
+             module.exports = router;
+      使用内置路由：
+         app.get("/",function(){})

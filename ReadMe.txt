@@ -216,3 +216,17 @@
              console.log("请访问127.0.0.1:7777")
          });
 
+    Vue框架:
+       1.vue小应用
+          <div id="app">
+                  {{content}}
+          </div>
+          var app = new Vue({
+                el:"#app",
+                data:{
+                    "content":"Hello Vue"
+                }
+          });
+          console.log(app.content);
+
+

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>01 Vue小程序</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+     <div id="app">
+         {{content}}
+     </div>
+</body>
+<script>
+    var app = new Vue({
+       el:"#app",
+       data:{
+           "content":"Hello Vue"
+       }
+    });
+    //打印app
+    console.log(app);
+    console.log(app.content);
+</script>
+</html>

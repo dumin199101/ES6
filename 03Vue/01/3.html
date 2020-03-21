@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>03 v-html,v-text指令</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <p v-text="text"><i></i></p>
+    <p v-html="html"></p>
+</div>
+<script>
+    var app = new Vue({
+        el:'#app',
+        data:{
+           text:'hello Vue',
+           html:'<h1>Hello Vue</h1>'
+        }
+    });
+
+</script>
+</body>
+</html>

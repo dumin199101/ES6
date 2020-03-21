@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>04 bind指令</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <p v-bind:id="id">Click Me</p>
+    <p v-bind:class="{active:isActive}"></p>
+    <div v-bind:class="[class1,class2]"></div>
+    <div :class="{active:isActive}"></div>
+</div>
+<script>
+    let app = new Vue({
+        el: '#app',
+        data: {
+            id: 'clickMe',
+            isActive: true,
+            class1: "aa",
+            class2: "bb"
+        }
+    });
+
+</script>
+</body>
+</html>

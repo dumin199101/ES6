@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>06 v-on指令</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <input type="button" value="点击我" v-on:click="clickMe">
+    <input type="button" value="点击我" @click="clickMe2(1,2,$event)">
+    <a href="http://www.baidu.com" @click.once.prevent="clickMe">百度</a>
+</div>
+<script>
+    let app = new Vue({
+        el:'#app',
+        data:{
+
+        },
+        methods:{
+            clickMe(){
+                alert(123);
+            },
+            clickMe2(a,b,ev){
+                console.log(a+b);
+                console.log(ev);
+            }
+        }
+    });
+</script>
+</body>
+</html>

@@ -225,8 +225,36 @@
                 el:"#app",
                 data:{
                     "content":"Hello Vue"
+                },
+                methods:{
+                  clickMe(){
+                    console.log("123");
+                  }
                 }
           });
           console.log(app.content);
+       2.插值
+         文本：{{text}}
+         表达式：{{num+3}}
+         函数：{{func()}}
+       3.指令
+         v-text:文本替换,跟插值的区别是如果有子元素会进行覆盖
+         v-html:html文本替换
+         v-bind:绑定属性,属于单项数据绑定,简写形式用:替换v-bind即可
+         v-model:
+                属于双向数据绑定：Vue实例中的数据改变，会影响DOM元素中的数据，反之亦然。
+                修饰符：.lazy:取代input监听change事件,.number:转换数字,.trim：去除空白
+         v-on:
+              作用:绑定事件
+              可以使用@代替v-on
+              可以使用$event获取事件对象
+              事件修饰符:
+                 .prevent:调用event.preventDefault()
+                 .stop:调用event.stopPropagation()
+                 .once:只触发一次
+
+
+
+
 
 

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>09 v-for指令</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <p v-for="(k,v) in arr">{{k}}---{{v}}</p>
+    <p v-for="(value,key,index) in obj">{{value}}---{{key}}---{{index}}</p>
+</div>
+<script>
+    var app = new Vue({
+        el:"#app",
+        data:{
+            arr:["hello","world","vue"],
+            obj:{
+                name:"wangliang",
+                age:22,
+                city:'beijing'
+            }
+        }
+    });
+</script>
+</body>
+</html>

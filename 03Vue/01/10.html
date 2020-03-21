@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>10 v-cloak&v-once指令</title>
+    <script src="../vue.js"></script>
+    <style>
+        [v-cloak]{
+            display:none;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <p v-cloak v-once>{{msg}}</p>
+    <p v-cloak>{{msg}}</p>
+</div>
+<script>
+    setTimeout(function () {
+        var app = new Vue({
+            el:"#app",
+            data:{
+                msg:"hello"
+            }
+        });
+    },3000);
+</script>
+</body>
+</html>

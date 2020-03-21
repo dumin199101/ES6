@@ -252,6 +252,14 @@
                  .prevent:调用event.preventDefault()
                  .stop:调用event.stopPropagation()
                  .once:只触发一次
+         v-show:控制显示隐藏
+         v-if:条件判断
+         v-else-if:条件判断
+         v-else:条件判断
+         v-for:循环
+         v-once:只渲染一次,动态改变vue实例中的数据,不受影响
+         v-cloak:指令保持在元素上，直至vue实例编译结束,结合css样式使用
+
 
 
 

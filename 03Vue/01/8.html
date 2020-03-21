@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>08 v-if-else-if-else</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <p v-if="num>5">Hello</p>
+    <p v-else-if="num<5&&num>3">Vue</p>
+    <p v-else>World</p>
+</div>
+<script>
+    var app = new Vue({
+        el:"#app",
+        data:{
+            num:4
+        }
+    });
+</script>
+</body>
+</html>

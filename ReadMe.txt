@@ -264,10 +264,29 @@
        6.computed计算属性:声明了一个计算属性 getFullName,函数将用作属性 vm.getFullName 的 getter 函数
        7.watch侦听器:侦听data的数据变化,可同时返回NewValue跟OldValue,常用做异步监听场景检测
        8.ref操作DOM元素:Vue提供了一个$refs属性可以获取DOM元素
-
-
-
-
-
-
-
+       9.过滤器filter:
+         全局过滤器
+             Vue.filter('reverse',function(value){
+                     return value.split("").reverse().join("");
+             });
+         局部过滤器
+            filters:{
+                    'upper':function (value) {
+                        return value.toUpperCase();
+                    }
+            }
+       10.自定义指令directive：
+         全局自定义指令
+             Vue.directive('haha2',{
+                'inserted'(element){
+                    return element.style.color = 'blue';
+                }
+             });
+         局部自定义指令
+            directives:{
+                'haha':{
+                    inserted:(element)=>{
+                        return element.style.color = 'red';
+                    }
+                }
+            }

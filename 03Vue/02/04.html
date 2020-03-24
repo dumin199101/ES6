@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>04 过滤器</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <p>{{msg|upper|reverse}}</p>
+</div>
+<script>
+    //全局过滤器：
+    Vue.filter('reverse',function(value){
+        return value.split("").reverse().join("");
+    });
+    let app = new Vue({
+        el:'#app',
+        data:{
+          msg:'hello'
+        },
+        methods:{
+           
+        },
+        //局部过滤器
+        filters:{
+            'upper':function (value) {
+                return value.toUpperCase();
+            }
+        }
+
+    });
+</script>
+</body>
+</html>

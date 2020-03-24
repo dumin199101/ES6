@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>05 自定义指令</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <p v-haha v-haha2>{{msg}}</p>
+</div>
+<script>
+    Vue.directive('haha2',{
+        'inserted'(element){
+            return element.style.color = 'blue';
+        }
+    });
+    let app = new Vue({
+        el:'#app',
+        data:{
+            msg:'Hello'
+        },
+        methods:{},
+        directives:{
+            'haha':{
+                inserted:(element)=>{
+                    return element.style.color = 'red';
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

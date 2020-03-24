@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>01 计算属性computed</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="xing">
+    <input type="text" v-model="ming">
+    {{getFullName}}
+</div>
+<script>
+    let app = new Vue({
+        el:'#app',
+        data:{
+            xing:'zheng',
+            ming:'jie'
+        },
+        methods:{
+
+        },
+        computed:{
+           getFullName(){
+               return this.xing + this.ming
+           }
+        }
+    });
+</script>
+</body>
+</html>

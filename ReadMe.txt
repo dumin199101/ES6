@@ -259,6 +259,9 @@
          v-for:循环
          v-once:只渲染一次,动态改变vue实例中的数据,不受影响
          v-cloak:指令保持在元素上，直至vue实例编译结束,结合css样式使用
+       4.devtools:Vue浏览器辅助开发插件
+       5.MVVM设计思想:Model/View/ViewModel(Vue框架就是充当这个角色)
+       6.computed计算属性:声明了一个计算属性 getFullName,函数将用作属性 vm.getFullName 的 getter 函数
 
 
 

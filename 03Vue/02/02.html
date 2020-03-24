@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>02 watch侦听器</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="xing">
+    <input type="text" v-model="ming">
+    {{getFullName}}
+</div>
+<script>
+    let app = new Vue({
+        el:'#app',
+        data:{
+            xing:'zheng',
+            ming:'jie'
+        },
+        methods:{
+
+        },
+        computed:{
+            getFullName(){
+                return this.xing + this.ming
+            }
+        },
+        watch:{
+           xing(newValue,oldValue) {
+               console.log(oldValue,newValue);
+           },
+           ming(newValue,oldValue){
+
+           }
+        }
+    });
+</script>
+</body>
+</html>

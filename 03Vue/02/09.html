@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>09组件</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+<div id="app">
+   <my-component></my-component>
+   <myzujian></myzujian>
+</div>
+<script>
+    Vue.component('my-component',{
+        template:'<h2>我是最帅帅的</h2>',
+    });
+    let app = new Vue({
+        el:'#app',
+        components:{
+            'myzujian':{
+                template:'<h3>我的组件</h3>'
+            }
+        }
+    });
+</script>
+</body>
+</html>

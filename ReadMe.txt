@@ -303,6 +303,26 @@
                  .then((response)=>{
                      console.log(response.data)
                  });
+       14.组件
+          定义：可复用的HTML代码块
+          全局组件：
+            Vue.component('my-component',{
+                    template:'<h2>我是最帅帅的</h2>',
+            });
+          局部组件：
+            let app = new Vue({
+                el:'#app',
+                components:{
+                    'myzujian':{
+                        template:'<h3>我的组件</h3>'
+                    }
+                }
+             });
+          使用组件:
+             <div id="app">
+                <my-component></my-component>
+                <myzujian></myzujian>
+             </div>
 
 
 

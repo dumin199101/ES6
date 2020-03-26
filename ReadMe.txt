@@ -323,6 +323,21 @@
                 <my-component></my-component>
                 <myzujian></myzujian>
              </div>
+          一个组件的data必须是一个函数,否则多次调用数据会相互影响.
+              let app = new Vue({
+                      el:'#app',
+                      components:{
+                          'myzujian':{
+                              data(){
+                                return {
+                                    'msg':'我的组件'
+                                }
+                              },
+                              template:'<h3>{{msg}}</h3>'
+                          }
+                      }
+                  });
+          注意：Vue也是一个组件,如果有template属性会替换el选中DOM元素的内容.
 
 
 

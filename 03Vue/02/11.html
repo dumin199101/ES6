@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>11 父组件通过props向子组件传递数据</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <my :msg="message"></my>
+</div>
+<script>
+    let app = new Vue({
+        el:'#app',
+        data:{
+            message:'是个好天气'
+        },
+        components:{
+            'my':{
+                props:['msg'],
+                template:'<h1>今天{{msg}}</h1>'
+            }
+        },
+    });
+</script>
+</body>
+</html>

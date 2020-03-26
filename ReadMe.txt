@@ -338,6 +338,25 @@
                       }
                   });
           注意：Vue也是一个组件,如果有template属性会替换el选中DOM元素的内容.
+          父组件向子组件通过props传递数据:
+            <div id="app">
+                <my :msg="message"></my>
+            </div>
+            <script>
+                let app = new Vue({
+                    el:'#app',
+                    data:{
+                        message:'是个好天气'
+                    },
+                    components:{
+                        'my':{
+                            props:['msg'],
+                            template:'<h1>今天{{msg}}</h1>'
+                        }
+                    },
+                });
+            </script>
+
 
 
 

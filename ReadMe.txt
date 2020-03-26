@@ -294,6 +294,10 @@
          6个切换class:v-enter,v-enter-active,v-enter-to,v-leave,v-leave-active,v-leave-to
          如果transition标签指定类名,那么切换类变为指定类名前缀即可
          结合animate.css:transition标签添加enter-class,enter-active-class,enter-to-class,leave-class,leave-active-class,leave-to-class
+       12.利用JsonServer搭建调试接口
+         安装:npm install -g json-server
+         使用:json-server -w user.json
+
 
 
 

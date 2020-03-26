@@ -1,0 +1,8 @@
+{
+  "user": [
+    {"name": "xiaoli","age": 22,"city": "beijing"},
+    {"name": "sunqiang","age": 21,"city": "tianjin"},
+    {"name": "wangmeng","age": 25,"city": "wuhan"},
+    {"name": "zhengwei","age": 22,"city": "beijing"}
+  ]
+}

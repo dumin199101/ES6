@@ -297,6 +297,13 @@
        12.利用JsonServer搭建调试接口
          安装:npm install -g json-server
          使用:json-server -w user.json
+         HTTP请求：查询：GET,添加：POST,修改：PUT,删除:DELETE
+       13.axios发送请求
+         axios.get("http://127.0.0.1:3000/user")
+                 .then((response)=>{
+                     console.log(response.data)
+                 });
+
 
 
 

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>07 动画跟过渡结合animate.css</title>
+    <script src="../vue.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div id="app">
+    <button @click="clickMe">点击我</button>
+    <transition enter-active-class="animated tada" leave-active-class="animated bounceOutRight">
+        <div v-show="isshow">
+            {{msg}}
+        </div>
+    </transition>
+</div>
+<script>
+    let app = new Vue({
+        el:'#app',
+        data:{
+            isshow:true,
+            msg:'Hello'
+        },
+        methods:{
+            clickMe(){
+                this.isshow = !this.isshow;
+            }
+        }
+    });
+</script>
+</body>
+</html>

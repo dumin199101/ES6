@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>12 Vue生命周期</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+<div id="app">
+    {{msg}}
+</div>
+<script>
+    let app = new Vue({
+        el:'#app',
+        data:{
+           msg:'Hello'
+        },
+        beforeCreate(){
+          console.log("开始孕育");
+        },
+        created(){
+            console.log("创建完成，指定el或template");
+        },
+        beforeMount(){
+            console.log("开始template编译");
+        },
+        mounted(){
+            console.log("挂在完毕，创建vm.$el替换el");
+            console.log(this.$el);
+            this.msg = 'World';
+        },
+        beforeUpdate(){
+            console.log("数据修改之前")
+        },
+        updated(){
+           console.log("数据修改完毕，渲染数据");
+           this.$destroy();
+        },
+        beforeDestroy(){
+            console.log("销毁之前");
+        },
+        destroyed(){
+            console.log("销毁完毕");
+        }
+
+    });
+</script>
+</body>
+</html>

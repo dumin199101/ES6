@@ -356,6 +356,44 @@
                     },
                 });
             </script>
+       15.生命周期
+         八个阶段：beforeCreate,created,beforeMount,mounted,beforeUpdate,updated,beforeDestroy,destroyed
+         <script>
+             let app = new Vue({
+                 el:'#app',
+                 data:{
+                    msg:'Hello'
+                 },
+                 beforeCreate(){
+                   console.log("开始孕育");
+                 },
+                 created(){
+                     console.log("创建完成，指定el或template");
+                 },
+                 beforeMount(){
+                     console.log("开始template编译");
+                 },
+                 mounted(){
+                     console.log("挂在完毕，创建vm.$el替换el");
+                     console.log(this.$el);
+                     this.msg = 'World';
+                 },
+                 beforeUpdate(){
+                     console.log("数据修改之前")
+                 },
+                 updated(){
+                    console.log("数据修改完毕，渲染数据");
+                    this.$destroy();
+                 },
+                 beforeDestroy(){
+                     console.log("销毁之前");
+                 },
+                 destroyed(){
+                     console.log("销毁完毕");
+                 }
+
+             });
+         </script>
 
 
 

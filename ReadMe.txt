@@ -438,6 +438,10 @@
                    router
                });
            </script>
+       17.vue-cli工具
+          全局安装：npm install @vue/cli @vue/cli-init -g
+          创建项目：vue init webpack hello
+
 
 
 

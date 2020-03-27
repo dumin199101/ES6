@@ -394,6 +394,50 @@
 
              });
          </script>
+       16.vueRouter路由组件：
+           常用于单页面应用
+           <div id="app">
+               <router-link to="/login">登录</router-link>
+               <router-link to="/register">注册</router-link>
+               <router-view></router-view>
+           </div>
+           <script>
+               var router = new VueRouter({
+                   routes:[
+                       {
+                           path:'/login',
+                           component:{template:'<h1>登录</h1>'}
+                       },
+                       {
+                         path:'/register',
+                         component: {template: '<h1>注册</h1>'}
+                       }
+                   ]
+               });
+               let app = new Vue({
+                   el:'#app',
+                   router
+               });
+           </script>
+           动态路由：
+           <div id="app">
+               <router-link to="/del/1">删除</router-link>
+               <router-view></router-view>
+           </div>
+           <script>
+               let router = new VueRouter({
+                   routes:[
+                       {
+                           path:'/del/:id',
+                           component:{template: '<h1>删除的ID是：{{$route.params.id}}</h1>'}
+                       }
+                   ]
+               });
+               let app = new Vue({
+                   el:'#app',
+                   router
+               });
+           </script>
 
 
 

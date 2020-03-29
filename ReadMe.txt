@@ -447,6 +447,18 @@
        1.工具
          ElementUI
          MarkdownPad2
+         axios
+       2.Vue中使用插件
+         第三方插件：通过Vue.use()使用插件,在new Vue()之前导入
+         自定义插件：Vue暴露install方法
+            import axios from 'axios'
+            let myaxios = {}
+            myaxios.install = function (Vue) {
+               Vue.prototype.$axios = axios
+            }
+            export default myaxios
+
+
 
 
 

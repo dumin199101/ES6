@@ -462,6 +462,22 @@
          Vue路由实例：$router
          编程式导航:$router.push()
          声明式导航:router-link
+         嵌套路由（组件中存在组件）:
+           routes: [
+               {
+                 path: '/',
+                 name: 'Home',
+                 component: Home,
+                 children:[
+                   {path:'/user',name:'User',component:User}
+                 ]
+               }
+           ]
+       4.localStorage存储:
+         设置：window.localStorage.setItem(key,value)
+         获取：window.localStorage.getItem(key);
+         删除：window.localStorage.removeItem(key)
+
 
 
 

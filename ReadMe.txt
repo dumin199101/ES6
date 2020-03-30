@@ -457,6 +457,11 @@
                Vue.prototype.$axios = axios
             }
             export default myaxios
+       3.路由
+         路由对象:$route,记录当前路由的状态信息
+         Vue路由实例：$router
+         编程式导航:$router.push()
+         声明式导航:router-link
 
 
 

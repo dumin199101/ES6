@@ -95,7 +95,7 @@
   }
   .height100{
      height:100%;
-     height:500px;
+     height:600px;
   }
   .el-aside {
     background-color: #D3DCE6;
@@ -108,7 +108,7 @@
     background-color: #E9EEF3;
     color: #333;
     text-align: center;
-    line-height: 160px;
+    line-height: 70px;
   }
 
   body > .el-container {

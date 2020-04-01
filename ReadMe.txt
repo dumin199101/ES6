@@ -477,6 +477,9 @@
          设置：window.localStorage.setItem(key,value)
          获取：window.localStorage.getItem(key);
          删除：window.localStorage.removeItem(key)
+       5.跨域
+         方案：1.JSONP 2.设置CORS响应头（Access-Control-Allow-Origin:*）
+
 
 
 

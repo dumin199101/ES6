@@ -13,7 +13,7 @@
       </el-input>
     </div>
     <div style="width:20%;float:right;">
-      <el-button type="success">添加用户</el-button>
+      <el-button type="success"  @click="addUserDialog">添加用户</el-button>
     </div>
 <!--    表格-->
     <el-table
@@ -61,7 +61,27 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="400">
     </el-pagination>
-
+<!--    添加用户dialog-->
+    <el-dialog title="添加用户" :visible.sync="addUserdialogFormVisible">
+      <el-form :model="userForm" ref="userForm" :rules="rules">
+        <el-form-item label="名称" prop="username">
+          <el-input v-model="userForm.username" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="password">
+          <el-input v-model="userForm.password" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱">
+          <el-input v-model="userForm.email" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="电话">
+          <el-input v-model="userForm.mobile" autocomplete="off"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="addUserdialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="addUser">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -71,7 +91,24 @@
                 searchValue: '',
                 tableData: [],
                 currentPage: 1,
-                is_active:true
+                is_active:true,
+                addUserdialogFormVisible:false,
+                userForm:{
+                   username:'',
+                   password:'',
+                   email:'',
+                   mobile:''
+                },
+                rules:{
+                    username:[
+                        { required: true, message: '请输入用户名', trigger: 'blur' },
+                        { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
+                    ],
+                    password:[
+                        { required: true, message: '请输入用密码', trigger: 'blur' },
+                        { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
+                    ]
+                }
             }
         },
         methods:{
@@ -101,7 +138,43 @@
             //模糊查询
             fuzzyQuery(){
                this.getUserList(this.searchValue);
+            },
+            //添加用户弹窗
+            addUserDialog(){
+                this.addUserdialogFormVisible = true;
+            },
+            //添加用户
+            addUser(){
+                this.$refs.userForm.validate(response=>{
+                    if(!response){
+                        return false;
+                    }else{
+                        //验证通过
+                        this.$axios({
+                           url:'users',
+                           method:'post',
+                           data:{
+                               username:this.userForm.username,
+                               password:this.userForm.password,
+                               email:this.userForm.email,
+                               mobile:this.userForm.mobile
+                           }
+                        }).then(response=>{
+                            let {meta,data} = response.data;
+                            if(meta.status==201){
+                                this.$message({
+                                    message: '恭喜你，添加用户成功',
+                                    type: 'success'
+                                });
+                                this.addUserdialogFormVisible = false;
+                                this.getUserList();
+                            }
+
+                        })
+                    }
+                });
             }
+
         },
         mounted() {
             //渲染之前得到数据

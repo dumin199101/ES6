@@ -479,6 +479,18 @@
          删除：window.localStorage.removeItem(key)
        5.跨域
          方案：1.JSONP 2.设置CORS响应头（Access-Control-Allow-Origin:*）
+       6.axios自定义配置
+         import axios from 'axios'
+         let myaxios = {}
+         myaxios.install = function (Vue) {
+            //自定义axios
+            var instance = axios.create({
+              baseURL: 'http://localhost:8888/api/private/v1/',
+              headers: {'Authorization': window.localStorage.getItem('token')}
+            });
+            Vue.prototype.$axios = instance;
+         }
+         export default myaxios
 
 
 

@@ -44,8 +44,11 @@
                       return false;
                   }else{
                       //验证成功
-                      this.$axios.post('http://localhost:8888/api/private/v1/login',{username:this.ruleForm.username,password:this.ruleForm.password})
-                          .then((response)=>{
+                      this.$axios({
+                          methos:'post',
+                          url:'login',
+                          params:{username:this.ruleForm.username,password:this.ruleForm.password}
+                      }).then((response)=>{
                               if(response.data.meta.status==200){
                                   //存储token
                                   window.localStorage.setItem('token',response.data.data.token);

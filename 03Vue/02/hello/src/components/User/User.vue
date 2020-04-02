@@ -37,7 +37,8 @@
         label="状态">
         <template slot-scope="scope">
           <el-switch
-            v-model="is_active"
+            v-model="scope.row.mg_state"
+            @change="changeStatus(scope)"
             active-color="#13ce66"
             inactive-color="#ff4949">
           </el-switch>
@@ -47,7 +48,7 @@
            <template slot-scope="scope">
              <el-button size="small" type="primary" icon="el-icon-edit"></el-button>
              <el-button size="small" type="danger" icon="el-icon-check"></el-button>
-             <el-button size="small" type="warning" icon="el-icon-delete"></el-button>
+             <el-button size="small" type="warning" icon="el-icon-delete" @click="deleteUser(scope.row.id)"></el-button>
            </template>
       </el-table-column>
     </el-table>
@@ -91,7 +92,6 @@
                 searchValue: '',
                 tableData: [],
                 currentPage: 1,
-                is_active:true,
                 addUserdialogFormVisible:false,
                 userForm:{
                    username:'',
@@ -172,6 +172,48 @@
 
                         })
                     }
+                });
+            },
+            //切换状态
+            changeStatus(scope){
+                this.$axios({
+                    url:`users/${scope.row.id}/state/${scope.row.mg_state}`,
+                    method:'put'
+                }).then(response=>{
+                    let {meta,data} = response.data;
+                    if(meta.status==200){
+                        this.$message({
+                            message: '恭喜你，状态修改成功',
+                            type: 'success'
+                        });
+                    }
+                });
+            },
+            //删除用户
+            deleteUser(id){
+                this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.$axios({
+                        url:`users/${id}/`,
+                        method:'delete'
+                    }).then(response=>{
+                        let {meta,data} = response.data;
+                        if(meta.status==200){
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                            this.getUserList();
+                        }
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
                 });
             }
 

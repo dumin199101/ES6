@@ -56,11 +56,11 @@
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="currentPage"
-      :page-sizes="[100, 200, 300, 400]"
-      :page-size="100"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="400">
+      :current-page.sync="currentPage"
+      :page-sizes="[3, 5, 10, 20]"
+      :page-size="pagesize"
+      layout="total,sizes, prev, pager, next"
+      :total="total">
     </el-pagination>
 <!--    添加用户dialog-->
     <el-dialog title="添加用户" :visible.sync="addUserdialogFormVisible">
@@ -111,6 +111,8 @@
                 searchValue: '',
                 tableData: [],
                 currentPage: 1,
+                pagesize:10,
+                total:0,
                 addUserdialogFormVisible:false,
                 editUserdialogFormVisible:false,
                 userForm:{
@@ -139,23 +141,29 @@
         methods:{
             handleSizeChange(val) {
                 console.log(`每页 ${val} 条`);
+                this.pagesize = val;
+                this.getUserList();
             },
             handleCurrentChange(val) {
                 console.log(`当前页: ${val}`);
+                this.currentPage = val;
+                this.getUserList();
             },
             //获取用户列表
             getUserList(query=''){
                 let url = '';
+
                 if(query!=''){
-                    url = `users?pagenum=1&pagesize=5&query=${query}`
+                    url = `users?pagenum=${this.currentPage}&pagesize=${this.pagesize}&query=${query}`
                 }else{
-                    url = 'users?pagenum=1&pagesize=5'
+                    url = `users?pagenum=${this.currentPage}&pagesize=${this.pagesize}`
                 }
                 this.$axios({
                     url:url,
                 }).then((response)=>{
                      let {meta,data} = response.data;
                      if(meta.status == 200){
+                         this.total = data.total;
                          this.tableData = data.users;
                      }
                 });

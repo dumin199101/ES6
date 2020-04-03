@@ -46,7 +46,7 @@
       </el-table-column>
       <el-table-column label="操作">
            <template slot-scope="scope">
-             <el-button size="small" type="primary" icon="el-icon-edit"></el-button>
+             <el-button size="small" type="primary" icon="el-icon-edit" @click="editUserDialog(scope.row)"></el-button>
              <el-button size="small" type="danger" icon="el-icon-check"></el-button>
              <el-button size="small" type="warning" icon="el-icon-delete" @click="deleteUser(scope.row.id)"></el-button>
            </template>
@@ -83,6 +83,25 @@
         <el-button type="primary" @click="addUser">确 定</el-button>
       </div>
     </el-dialog>
+<!--    修改用户信息的dialog-->
+    <el-dialog title="修改用户" :visible.sync="editUserdialogFormVisible">
+      <el-form :model="editForm" ref="editForm" :rules="rules">
+        <el-form-item label="名称" prop="username">
+          <el-input v-model="editForm.username" :disabled="true" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱">
+          <el-input v-model="editForm.email" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="电话">
+          <el-input v-model="editForm.mobile" autocomplete="off"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="editUserdialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="editUser">确 定</el-button>
+      </div>
+    </el-dialog>
+
   </div>
 </template>
 <script>
@@ -93,11 +112,17 @@
                 tableData: [],
                 currentPage: 1,
                 addUserdialogFormVisible:false,
+                editUserdialogFormVisible:false,
                 userForm:{
                    username:'',
                    password:'',
                    email:'',
                    mobile:''
+                },
+                editForm:{
+                    username:'',
+                    email:'',
+                    mobile:''
                 },
                 rules:{
                     username:[
@@ -214,6 +239,42 @@
                         type: 'info',
                         message: '已取消删除'
                     });
+                });
+            },
+            //修改用户弹窗
+            editUserDialog(userinfo){
+                this.editUserdialogFormVisible = true;
+                this.editForm = userinfo;
+            },
+            //修改用户
+            editUser(){
+                this.$refs.editForm.validate(response=>{
+                    if(!response){
+                        return false;
+                    }else{
+                        //验证通过
+                        let id = this.editForm.id;
+                        this.$axios({
+                            url:`users/${id}`,
+                            method:'put',
+                            data:{
+                                username:this.editForm.username,
+                                email:this.editForm.email,
+                                mobile:this.editForm.mobile
+                            }
+                        }).then(response=>{
+                            let {meta,data} = response.data;
+                            if(meta.status==200){
+                                this.$message({
+                                    message: '恭喜你，修改用户成功',
+                                    type: 'success'
+                                });
+                                this.editUserdialogFormVisible = false;
+                                this.getUserList();
+                            }
+
+                        })
+                    }
                 });
             }
 

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>16 组件自定义slot分发内容</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <mylists :students="students">
+        <template scope="v">
+            <li>{{v.field.name}}</li>
+        </template>
+    </mylists>
+</div>
+<script type="x-template" id="lists">
+    <ul>
+        <slot v-for="student in students" :field="student"></slot>
+    </ul>
+</script>
+<script>
+    let app = new Vue({
+        el: '#app',
+        data: {
+            students: [
+                {name: 'lisi', age: 22},
+                {name: 'wangwu', age: 26},
+                {name: 'zhangsan', age: 23},
+            ]
+        },
+        components: {
+            mylists: {
+                props: ['students'],
+                template: '#lists'
+            },
+        }
+    });
+</script>
+</body>
+</html>

@@ -356,6 +356,62 @@
                     },
                 });
             </script>
+          组件通过slot分发内容：
+            <div id="app">
+                <mylists>
+                    <h1>Hello</h1>
+                    <h2 slot="header">World</h2>
+                    <h3 slot="body">Vue</h3>
+                </mylists>
+            </div>
+            <script type="x-template" id="lists">
+                <div>
+                    <slot></slot>
+                    <slot name="header"></slot>
+                    <slot name="body"></slot>
+                </div>
+            </script>
+            <script>
+                let app = new Vue({
+                    el: '#app',
+                    components: {
+                        mylists: {
+                            template:'#lists'
+                        }
+                    }
+                });
+            </script>
+          自定义slot分发内容,通过scope接收变量
+              div id="app">
+                  <mylists :students="students">
+                      <template scope="v">
+                          <li>{{v.field.name}}</li>
+                      </template>
+                  </mylists>
+              </div>
+              <script type="x-template" id="lists">
+                  <ul>
+                      <slot v-for="student in students" :field="student"></slot>
+                  </ul>
+              </script>
+              <script>
+                  let app = new Vue({
+                      el: '#app',
+                      data: {
+                          students: [
+                              {name: 'lisi', age: 22},
+                              {name: 'wangwu', age: 26},
+                              {name: 'zhangsan', age: 23},
+                          ]
+                      },
+                      components: {
+                          mylists: {
+                              props: ['students'],
+                              template: '#lists'
+                          },
+                      }
+                  });
+              </script>
        15.生命周期
          八个阶段：beforeCreate,created,beforeMount,mounted,beforeUpdate,updated,beforeDestroy,destroyed
          <script>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>15组件通过slot分发内容</title>
+    <script src="../vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <mylists>
+        <h1>Hello</h1>
+        <h2 slot="header">World</h2>
+        <h3 slot="body">Vue</h3>
+    </mylists>
+</div>
+<script type="x-template" id="lists">
+    <div>
+        <slot></slot>
+        <slot name="header"></slot>
+        <slot name="body"></slot>
+    </div>
+</script>
+<script>
+    let app = new Vue({
+        el: '#app',
+        components: {
+            mylists: {
+                template:'#lists'
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

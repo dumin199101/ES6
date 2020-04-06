@@ -382,7 +382,7 @@
                 });
             </script>
           自定义slot分发内容,通过scope接收变量
-              div id="app">
+              <div id="app">
                   <mylists :students="students">
                       <template scope="v">
                           <li>{{v.field.name}}</li>
@@ -529,6 +529,116 @@
                  ]
                }
            ]
+         命名路由：
+           <div id="app">
+               <router-link :to="{name:'delete',params:{id:1}}">删除</router-link>
+               <router-view></router-view>
+           </div>
+           <script>
+               let router = new VueRouter({
+                   routes:[
+                       {
+                           path:'/del/:id',
+                           name:'delete',
+                           component:{template: '<h1>删除的ID是：{{$route.params.id}}</h1>'}
+                       }
+                   ]
+               });
+               let app = new Vue({
+                   el:'#app',
+                   router
+               });
+           </script>
+         命名视图：
+            作用：同级展示多个视图,使用components配置
+            <div id="app">
+                <router-view></router-view>
+                <router-view name="slide"></router-view>
+                <router-view name="content"></router-view>
+            </div>
+            <script type="x-template" id="menu">
+                 <div style="width:100%"><h1>Menu</h1></div>
+            </script>
+            <script type="x-template" id="slide">
+                <div style="width:30%;float:left;"><h1>slide</h1></div>
+            </script>
+            <script type="x-template" id="content">
+                <div style="width:70%;float:right;"><h1>content</h1></div>
+            </script>
+            <script>
+                const menu = {template:'#menu'}
+                const slide = {template:'#slide'}
+                const content = {template:'#content'}
+                let router = new VueRouter({
+                    routes:[
+                        {
+                            path:'/',
+                            name:'home',
+                            components:{
+                                default:menu,
+                                slide:slide,
+                                content:content,
+                            }
+                        }
+                    ]
+                });
+                let app = new Vue({
+                    el:'#app',
+                    router
+                });
+            </script>
+         路由重定向与别名：
+           重定向与别名的区别:重定向会改变URL,别名不会改变URL
+           重定向：
+                <div id="app">
+                    <router-link :to="{name:'about'}">关于我们</router-link>
+                    <router-view></router-view>
+                </div>
+                <script>
+                    let router = new VueRouter({
+                        routes:[
+                            {
+                                path:'/del/:id',
+                                name:'delete',
+                                component:{template: '<h1>删除的ID是：{{$route.params.id}}</h1>'}
+                            },
+                            {
+                                path:'/about',
+                                name:'about',
+                                redirect:{name:'delete',params:{'id':1}}
+                            }
+                        ]
+                    });
+                    let app = new Vue({
+                        el:'#app',
+                        router
+                    });
+                </script>
+           别名:
+                <div id="app">
+                    <router-link :to="{name:'about'}">关于我们</router-link>
+                    <router-view></router-view>
+                </div>
+                <script>
+                    let router = new VueRouter({
+                        routes:[
+                            {
+                                path:'/del/:id',
+                                name:'delete',
+                                component:{template: '<h1>删除的ID是：{{$route.params.id}}</h1>'}
+                            },
+                            {
+                                path:'/del/2',
+                                name:'about',
+                                alias:'/about'
+                            }
+                        ]
+                    });
+                    let app = new Vue({
+                        el:'#app',
+                        router
+                    });
+                </script>
        4.localStorage存储:
          设置：window.localStorage.setItem(key,value)
          获取：window.localStorage.getItem(key);

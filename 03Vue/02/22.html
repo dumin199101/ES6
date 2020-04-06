@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>21 路由参数默认值</title>
+    <script src="../vue.js"></script>
+    <script src="../vue-router.js"></script>
+</head>
+<body>
+<div id="app">
+    <router-link :to="{name:'delete'}">删除</router-link>
+    <router-view></router-view>
+</div>
+<script>
+    let router = new VueRouter({
+        routes:[
+            {
+                path:'/del/:id(\\d+)?',
+                name:'delete',
+                component:{
+                    data(){
+                        return {
+                            id:0
+                        }
+                    },
+                    mounted(){
+                        this.id = this.$route.params.id;
+                        if(!this.id){
+                            this.id = 1;
+                        }
+                        console.log(this.id);
+                    },
+                    template: '<h1>删除的ID是：{{id}}</h1>'
+                }
+            }
+        ]
+    });
+    let app = new Vue({
+        el:'#app',
+        router
+    });
+</script>
+</body>
+</html>

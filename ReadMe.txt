@@ -639,6 +639,60 @@
                         router
                     });
                 </script>
+           路由参数校验：
+              <div id="app">
+                  <router-link :to="{name:'delete',params:{id:1}}">删除</router-link>
+                  <router-view></router-view>
+              </div>
+              <script>
+                  let router = new VueRouter({
+                      routes:[
+                          {
+                              path:'/del/:id(\\d+)',
+                              name:'delete',
+                              component:{template: '<h1>删除的ID是：{{$route.params.id}}</h1>'}
+                          }
+                      ]
+                  });
+                  let app = new Vue({
+                      el:'#app',
+                      router
+                  });
+              </script>
+           路由默认值:
+              <div id="app">
+                  <router-link :to="{name:'delete'}">删除</router-link>
+                  <router-view></router-view>
+              </div>
+              <script>
+                  let router = new VueRouter({
+                      routes:[
+                          {
+                              path:'/del/:id(\\d+)?',
+                              name:'delete',
+                              component:{
+                                  data(){
+                                      return {
+                                          id:0
+                                      }
+                                  },
+                                  mounted(){
+                                      this.id = this.$route.params.id;
+                                      if(!this.id){
+                                          this.id = 1;
+                                      }
+                                      console.log(this.id);
+                                  },
+                                  template: '<h1>删除的ID是：{{id}}</h1>'
+                              }
+                          }
+                      ]
+                  });
+                  let app = new Vue({
+                      el:'#app',
+                      router
+                  });
+              </script>
        4.localStorage存储:
          设置：window.localStorage.setItem(key,value)
          获取：window.localStorage.getItem(key);

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>21 路由参数校验</title>
+    <script src="../vue.js"></script>
+    <script src="../vue-router.js"></script>
+</head>
+<body>
+<div id="app">
+    <router-link :to="{name:'delete',params:{id:1}}">删除</router-link>
+    <router-view></router-view>
+</div>
+<script>
+    let router = new VueRouter({
+        routes:[
+            {
+                path:'/del/:id(\\d+)',
+                name:'delete',
+                component:{template: '<h1>删除的ID是：{{$route.params.id}}</h1>'}
+            }
+        ]
+    });
+    let app = new Vue({
+        el:'#app',
+        router
+    });
+</script>
+</body>
+</html>

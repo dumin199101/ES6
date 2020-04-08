@@ -712,6 +712,20 @@
          }
          export default myaxios
 
+     Vuex:状态管理模式
+        概念：
+            1.state:数据
+            2.getters:获取数据
+            3.mutations:修改数据
+            4.actions:初始化数据
+            5.modules:模块
+        购物车实例
+          1.子组件结合计算属性使用vuex的state属性获取购物车数据
+
+
+
+
+
 
 
 

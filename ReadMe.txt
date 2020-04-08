@@ -721,6 +721,7 @@
             5.modules:模块
         购物车实例
           1.子组件结合计算属性使用vuex的state属性获取购物车数据
+          2.通过vuex的getters属性获取总价
 
 
 

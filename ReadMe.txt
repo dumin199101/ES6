@@ -724,6 +724,7 @@
           2.通过vuex的getters属性获取总价
           3.使用vuex的mutations属性删除数据
           4.使用vuex的actions属性初始化数据
+          5.使用vuex的modules属性模块化
 
 
 

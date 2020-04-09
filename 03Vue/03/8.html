@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>08 使用vuex的modules属性模块化</title>
+    <script src="../vue.js"></script>
+    <script src="../vuex.js"></script>
+    <script src="../axios.js"></script>
+</head>
+<body>
+<div id="app">
+    <lists></lists>
+    <cart></cart>
+</div>
+<script type="x-template" id="lists">
+    <div>
+        <table border="1">
+            <tr>
+                <th>ID</th>
+                <th>名称</th>
+                <th>价格</th>
+                <th>数量</th>
+                <th>小计</th>
+                <th>操作</th>
+            </tr>
+            <tr v-for="v in goods">
+                <td>{{v.id}}</td>
+                <td>{{v.title}}</td>
+                <td>{{v.price}}</td>
+                <td><input type="text" v-model="v.num"></td>
+                <td>{{v.total}}</td>
+                <td>
+                    <button @click="del(v.id)">删除</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</script>
+<script type="x-template" id="cart">
+    <div>
+        <h1>总价:{{totalPrice}}</h1>
+    </div>
+</script>
+<script>
+    let lists = {
+        template: '#lists',
+        computed: {
+            goods() {
+                //state属性中是局部变量,其余属性是全局变量
+                console.log(this.$store.state.cart.goods);
+                return this.$store.getters['cart/goods'];
+            }
+        },
+        methods:{
+            del(id){
+                this.$store.commit('cart/delGoods',{id});
+            }
+        }
+    };
+    let cart = {
+        template: '#cart',
+        computed: {
+            totalPrice() {
+                return this.$store.getters['cart/totalPrice'];
+            }
+        }
+    };
+    let cartModule = {
+        //加入命名空间
+        namespaced:true,
+        state: {
+            goods: []
+        },
+        getters: {
+            totalPrice(state) {
+                let totalPrice = 0;
+                state.goods.forEach(function (v) {
+                    totalPrice += v.price * v.num;
+                });
+                return totalPrice;
+            },
+            goods: (state) => {
+                let goods = state.goods
+                goods.forEach(function (v) {
+                    v.total = v.num * v.price;
+                })
+                return goods;
+            }
+        },
+        mutations:{
+            delGoods(state,params){
+                let k = 0;
+                for(let i=0;i<state.goods.length;i++){
+                    if(state.goods[i].id == params.id){
+                        k = i;
+                        break
+                    }
+                }
+                state.goods.splice(k,1);
+            },
+            setGoods(state,params){
+                state.goods = params.data;
+            }
+        },
+        actions:{
+            loadGoods(store){
+                //初始化请求数据
+                axios.get('http://localhost:8001/03Vue/03/data.php')
+                    .then((response)=>{
+                        //设置数据
+                        store.commit('setGoods',response);
+                    });
+
+            }
+        }
+    }
+    let store = new Vuex.Store({
+        modules:{
+            cart:cartModule
+        }
+    });
+    var app = new Vue({
+        el: '#app',
+        store,
+        components: {
+            lists,
+            cart
+        },
+        mounted(){
+            this.$store.dispatch('cart/loadGoods');
+        }
+  });
+</script>
+</body>
+</html>

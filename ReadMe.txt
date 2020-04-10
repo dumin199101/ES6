@@ -693,6 +693,35 @@
                       router
                   });
               </script>
+           路由守卫：
+             // 配置路由的拦截器
+             router.beforeEach((to, from, next) => {
+               // 如果访问登录的路由地址，放过
+               if (to.name === 'login') {
+                 next();
+               } else {
+                 // 如果请求的不是登录页面，验证token
+                 // 1. 获取本地存储中的token
+                 const token = localStorage.getItem('token');
+                 if (!token) {
+                   Message({
+                     type: 'warning',
+                     message: '请先登录!'
+                   });
+                   // 2. 如果没有token，跳转到登录
+                   next({
+                     name: 'login'
+                   });
+                 } else {
+                   // 3. 如果有token，继续往下执行
+                   next();
+                 }
+               }
+             });
+           路由懒加载(首屏优化):
+               const Foo = () => import('./Foo.vue')
+               const Bar = () => import('./Bar.vue')
+
        4.localStorage存储:
          设置：window.localStorage.setItem(key,value)
          获取：window.localStorage.getItem(key);
@@ -725,6 +754,28 @@
           3.使用vuex的mutations属性删除数据
           4.使用vuex的actions属性初始化数据
           5.使用vuex的modules属性模块化
+
+     Webpack项目打包:
+        1.项目打包:npm run build
+        2.CDN加速打包:
+           module.exports = {
+             //...
+             externals: {
+               //包名:类名
+               jquery: 'jQuery',
+               vue:'Vue',
+               'vue-router':'Router'
+             }
+           };
+        3.安装
+          全局：npm install webpack webpack-cli -g
+          局部（推荐）：npm install webpack webpack-cli
+        4.使用
+          全局使用：webpack 文件名
+          局部使用：package.json中scripts加入可执行命令
+
+
+
 
 
 

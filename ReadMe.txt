@@ -1,6 +1,6 @@
 项目说明：
 
-    Es6语法及NodeJS及Vue
+    Es6语法&NodeJS&Vue&React
 
     NodeJS:一个基于V8引擎的Javascript运行环境，独立于浏览器存在，基于操作系统。
     特点：基于事件驱动，单线程，异步非阻塞IO，跨平台。
@@ -773,6 +773,96 @@
         4.使用
           全局使用：webpack 文件名
           局部使用：package.json中scripts加入可执行命令
+
+     React框架
+        1.前端三大框架
+            React：Facebook
+            Angular：Google
+            Vue:尤雨溪
+        2.构建工具create-react-app
+          全局安装：npm install create-react-app -g
+        3.构建项目
+          create-react-app 项目名
+        4.启动项目
+          npm start
+        5.jsx语法
+        6.ES6面向对象
+          原型继承
+              function Person(){
+                 this.say=function(){
+                    console.log(this.name)
+                 }
+              }
+
+              function Student(){
+                  this.name = 'lisi';
+              }
+
+              Student.prototype = new Person();
+
+              var s = new Student();
+              s.say();
+          冒充继承
+              function Person(){
+                  this.say=function(){
+                      console.log(this.name)
+                  }
+              }
+
+              function Student(){
+                  Person.call(this);
+                  this.name = 'lisi';
+              }
+
+              var s = new Student();
+              s.say();
+
+          class类声明，不支持变量提升
+              class Person{
+                  constructor(){
+                      this.name = 'lisi'
+                      this.age = 22
+                  }
+                  say(){
+                     console.log(this.name+'---'+this.age);
+                  }
+              }
+
+              var p = new Person();
+              p.say();
+
+          类继承
+              class Person{
+                  constructor(){
+                      this.name = 'lisi';
+                      this.age = 22;
+                  }
+                  say(){
+                      console.log(this.name+'---'+this.age);
+                  }
+              }
+
+              class Student extends Person{
+                  constructor(){
+                      super();
+                      this.city = 'beijing';
+                  }
+                  eat(){
+                      console.log('eat')
+                  }
+              }
+
+              var s = new Student();
+              s.say();
+              s.eat();
+
+
+
+
+
+
+
+
 
 
 

@@ -786,6 +786,29 @@
         4.启动项目
           npm start
         5.jsx语法
+          创建元素
+            1.ReactDOM.render(React.createElement('h1',{'id':'myh1'},'Hello World'),document.getElementById('app'));
+            2.ReactDOM.render(
+                  (
+                      <div>
+                          <h1>Hello React</h1>
+                      </div>
+                  ),document.getElementById('app')
+              );
+          循环遍历
+            var msg = 'Hello React'
+            var arr = ['a','b','c']
+            var arr2 = arr.map(function(v,k){
+                return <h1 key="k">{v}</h1>
+            })
+            ReactDOM.render(
+                (
+                    <div>
+                        <h1>{msg}</h1>
+                        <div>{arr2}</div>
+                    </div>
+                ),document.getElementById('app')
+            );
         6.ES6面向对象
           原型继承
               function Person(){
@@ -855,6 +878,74 @@
               var s = new Student();
               s.say();
               s.eat();
+
+        7.组件
+          构造函数组件（无状态组件,无私有数据）
+            var data = {
+              name:'lisi'
+            }
+            function Hello(props){
+                console.log(props);
+                return <div>
+                    <h1>{props.name}</h1>
+                </div>
+            }
+            ReactDOM.render((
+                <Hello name={data.name} />
+            ),document.getElementById('app'));
+          类组件（有状态组件,有私有数据）
+            var data = {
+                name:'lisi'
+            }
+
+            class Hello extends Component{
+                render() {
+                    return <div>
+                        <h1>{this.props.name}</h1>
+                    </div>
+                }
+            }
+
+            ReactDOM.render((
+                <Hello name={data.name} />
+            ),document.getElementById('app'));
+
+        8.props跟state的区别
+          state是组件私有数据，只能在类组件中使用，可读可写
+          props是外部传入数据，在类组件跟函数组件中都能使用，只能读取
+          import React,{Component} from 'react'
+          class CmtList extends Component{
+              constructor(){
+                  super();
+                  //私有数据
+                  this.state = {
+                      cmtlists:[
+                          {id:1,title:'苹果',content:'东西不错嘛'},
+                          {id:2,title:'梨子',content:'东西不错啊'},
+                          {id:3,title:'香蕉',content:'东西不错呀'},
+                          {id:4,title:'橘子',content:'东西不错哦'},
+                      ]
+                  }
+              }
+              render() {
+                  return (
+                      <div>
+                          {this.state.cmtlists.map(function(v){
+                              return (<div key={v.id}>
+                                  <h1>{v.title}</h1>
+                                  <hr/>
+                                  <p>{v.content}</p>
+                              </div>)
+                          })}
+                      </div>
+                  )
+              }
+          }
+
+          export default CmtList
+
+
+
 
 
 

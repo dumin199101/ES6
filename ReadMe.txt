@@ -914,6 +914,7 @@
           state是组件私有数据，只能在类组件中使用，可读可写
           props是外部传入数据，在类组件跟函数组件中都能使用，只能读取
           import React,{Component} from 'react'
+          import './red.css'
           class CmtList extends Component{
               constructor(){
                   super();
@@ -932,7 +933,7 @@
                       <div>
                           {this.state.cmtlists.map(function(v){
                               return (<div key={v.id}>
-                                  <h1>{v.title}</h1>
+                                  <h1 className="red">{v.title}</h1>
                                   <hr/>
                                   <p>{v.content}</p>
                               </div>)

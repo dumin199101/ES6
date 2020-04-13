@@ -1,4 +1,5 @@
 import React,{Component} from 'react'
+import './red.css'
 class CmtList extends Component{
     constructor(){
         super();
@@ -17,7 +18,7 @@ class CmtList extends Component{
             <div>
                 {this.state.cmtlists.map(function(v){
                     return (<div key={v.id}>
-                        <h1>{v.title}</h1>
+                        <h1 className="red">{v.title}</h1>
                         <hr/>
                         <p>{v.content}</p>
                     </div>)

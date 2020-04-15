@@ -1,4 +1,5 @@
 import React,{Component} from 'react'
+import 'bootstrap/dist/css/bootstrap.css'
 import './red.css'
 class CmtList extends Component{
     constructor(){
@@ -13,9 +14,15 @@ class CmtList extends Component{
             ]
         }
     }
+
+    handleClick = ()=>{
+        console.log(this.state.cmtlists[0].title);
+    }
+
     render() {
         return (
             <div>
+                <button className="btn btn-danger" onClick={this.handleClick}>按钮</button>
                 {this.state.cmtlists.map(function(v){
                     return (<div key={v.id}>
                         <h1 className="red">{v.title}</h1>

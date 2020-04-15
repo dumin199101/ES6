@@ -914,6 +914,7 @@
           state是组件私有数据，只能在类组件中使用，可读可写
           props是外部传入数据，在类组件跟函数组件中都能使用，只能读取
           import React,{Component} from 'react'
+          import 'bootstrap/dist/css/bootstrap.css'
           import './red.css'
           class CmtList extends Component{
               constructor(){
@@ -945,35 +946,10 @@
 
           export default CmtList
 
+        9.事件处理
+          使用箭头函数解决this的指向问题
+          handleClick = ()=>{
+                  console.log(this.state.cmtlists[0].title);
+          }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+          <button className="btn btn-danger" onClick={this.handleClick}>按钮</button>

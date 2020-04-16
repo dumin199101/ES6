@@ -953,3 +953,86 @@
           }
 
           <button className="btn btn-danger" onClick={this.handleClick}>按钮</button>
+
+        10.数据绑定
+           单向数据绑定
+               class Person extends Component{
+                   constructor(){
+                       super()
+                       this.state = {
+                           name:'lisi'
+                       }
+                   }
+
+                   render() {
+                       return (
+                           <div>
+                               <button onClick={this.changeData}>改变数据</button>
+                               <h1>{this.state.name}</h1>
+                           </div>
+                       )
+                   }
+
+                   changeData = () =>{
+                       this.setState({
+                           name:'wangwu'
+                       })
+                   }
+               }
+
+               ReactDOM.render(<Person/>,document.getElementById('app'))
+
+           双向数据绑定
+              class Person extends Component{
+                  constructor(){
+                      super()
+                      this.state = {
+                          name:'lisi'
+                      }
+                  }
+
+                  render() {
+                      return (
+                          <div>
+                              <input type="text" value={this.state.name} onChange={this.changeData}/>
+                              <h1>{this.state.name}</h1>
+                          </div>
+                      )
+                  }
+
+                  changeData = (e) =>{
+                      this.setState({
+                          name:e.target.value
+                      })
+                  }
+              }
+
+              ReactDOM.render(<Person/>,document.getElementById('app'))
+
+        11.refs操作DOM
+           class Person extends Component{
+               constructor(){
+                   super()
+                   this.state = {
+                       name:'lisi'
+                   }
+               }
+
+               render() {
+                   return (
+                       <div>
+                           <input ref="btn" type="text" value={this.state.name} onChange={this.changeData}/>
+                           <h1>{this.state.name}</h1>
+                       </div>
+                   )
+               }
+
+               changeData = () =>{
+                   this.setState({
+                       name:this.refs.btn.value
+                   })
+               }
+           }
+
+           ReactDOM.render(<Person/>,document.getElementById('app'))
+

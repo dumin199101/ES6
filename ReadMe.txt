@@ -1118,5 +1118,30 @@
 
            ReactDOM.render((<Person />),document.getElementById('app'))
 
+        14.路由
+          安装:npm install reacct-router-dom
+          使用:
+          const Pro1 = ()=> <h1>Hello1</h1>
+          const Pro2 = ()=> <h1>Hello2</h1>
+          const Pro3 = ()=> <h1>Hello3</h1>
+
+          const Pro = ()=>{
+              return (
+                  <div>
+                      <Router>
+                          <Link to="/Pro1">Pro1</Link>
+                          <Link to="/Pro2">Pro2</Link>
+                          <Link to="/Pro3">Pro3</Link>
+                          <Route path="/Pro1" component={Pro1}></Route>
+                          <Route path="/Pro2" component={Pro2}></Route>
+                          <Route path="/Pro3" component={Pro3}></Route>
+                      </Router>
+                  </div>
+              )
+          }
+
+          ReactDOM.render((<Pro />),document.getElementById('app'))
+
+
 
 

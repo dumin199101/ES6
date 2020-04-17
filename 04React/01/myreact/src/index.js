@@ -112,11 +112,11 @@ class Person extends Component{
 ReactDOM.render(<Person/>,document.getElementById('app'))*/
 
 //ref操作DOM
-class Person extends Component{
-    constructor(){
-        super()
+/*class Person extends Component{
+    constructor(props){
+        super(props)
         this.state = {
-            name:'lisi'
+            name:props.name,
         }
     }
 
@@ -131,10 +131,112 @@ class Person extends Component{
 
     changeData = () =>{
         this.setState({
-            name:this.refs.btn.value
+            name:this.refs.btn.value,
         })
     }
 
+    //生命周期
+    componentWillMount() {
+        console.log("WillMount")
+    }
+
+    componentDidMount() {
+        console.log("DidMount")
+    }
+
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        // console.log(nextState);
+        return true;
+    }
+
+    componentWillReceiveProps(nextProps, nextContext) {
+        console.log(3)
+    }
+
+    componentWillUpdate(nextProps, nextState, nextContext) {
+        console.log(1,nextState)
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log(2,prevState)
+    }
+
+    componentWillUnmount() {
+        console.log('unmount')
+    }
+
+
 }
 
-ReactDOM.render(<Person/>,document.getElementById('app'))
+
+ReactDOM.render(<Person name="lisi" />,document.getElementById('app'))*/
+
+//组件间通信
+class Student extends Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            mm:props.nn
+        }
+    }
+
+    render() {
+        return (
+            <div>
+                <button onClick={this.changeStudent}>修改</button>
+                <h1>{this.state.mm}</h1>
+            </div>
+        )
+    }
+
+    changeStudent = ()=>{
+        //子组件数据变化传递父组件
+        this.props.back(this.state.mm+1)
+        this.setState({
+            mm:this.state.mm+1
+        })
+    }
+
+    componentWillReceiveProps(nextProps, nextContext) {
+        console.log(nextProps);
+        //父组件数据变化传递子组件
+        this.setState({
+            mm:nextProps.nn
+        })
+    }
+}
+
+
+class Person extends Component{
+    constructor(){
+        super()
+        this.state = {
+            nn:0
+        }
+    }
+
+    render() {
+        return (
+            <div>
+                <button onClick={this.changePerson}>修改</button>
+                <h1>{this.state.nn}</h1>
+                <hr/>
+                <Student back={this.back} nn={this.state.nn} />
+            </div>
+        )
+    }
+
+    changePerson = ()=>{
+        this.setState({
+            nn:this.state.nn+1
+        })
+    }
+
+    back = (data) =>{
+        this.setState({
+            nn:data
+        })
+    }
+}
+
+ReactDOM.render((<Person />),document.getElementById('app'))

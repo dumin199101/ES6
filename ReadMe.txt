@@ -1036,3 +1036,87 @@
 
            ReactDOM.render(<Person/>,document.getElementById('app'))
 
+        12.React生命周期
+          钩子函数
+          componentWillMount:render渲染之前触发
+          componentDidMount:render渲染之后触发
+          componentWillUnmount:销毁之后触发
+          shouldComponentUpdate:render渲染之前触发
+          componentWillUpdate:render渲染之前触发
+          componentDidUpdate:render渲染之后触发
+          componentWillReceiveProps:props数据发生变化时触发
+
+        13.组件之间的通讯
+           父-子:props
+           子-父:callback
+           class Student extends Component{
+               constructor(props){
+                   super(props)
+                   this.state = {
+                       mm:props.nn
+                   }
+               }
+
+               render() {
+                   return (
+                       <div>
+                           <button onClick={this.changeStudent}>修改</button>
+                           <h1>{this.state.mm}</h1>
+                       </div>
+                   )
+               }
+
+               changeStudent = ()=>{
+                   //子组件数据变化传递父组件
+                   this.props.back(this.state.mm+1)
+                   this.setState({
+                       mm:this.state.mm+1
+                   })
+               }
+
+               componentWillReceiveProps(nextProps, nextContext) {
+                   console.log(nextProps);
+                   //父组件数据变化传递子组件
+                   this.setState({
+                       mm:nextProps.nn
+                   })
+               }
+           }
+
+
+           class Person extends Component{
+               constructor(){
+                   super()
+                   this.state = {
+                       nn:0
+                   }
+               }
+
+               render() {
+                   return (
+                       <div>
+                           <button onClick={this.changePerson}>修改</button>
+                           <h1>{this.state.nn}</h1>
+                           <hr/>
+                           <Student back={this.back} nn={this.state.nn} />
+                       </div>
+                   )
+               }
+
+               changePerson = ()=>{
+                   this.setState({
+                       nn:this.state.nn+1
+                   })
+               }
+
+               back = (data) =>{
+                   this.setState({
+                       nn:data
+                   })
+               }
+           }
+
+           ReactDOM.render((<Person />),document.getElementById('app'))
+
+
+

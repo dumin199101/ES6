@@ -1144,6 +1144,8 @@
 
           嵌套路由
              路由地址要加前缀
+             路由参数传递
+             编程式导航:事件触发使用箭头函数
              const Pro1 = ()=> <div>
                  <h1>Hello1</h1>
                  <Link to="/Pro1/Pro1-1">Pro1-1</Link>
@@ -1152,21 +1154,26 @@
                  <Route path="/Pro1/Pro1-1" component={Pro1_1}></Route>
                  <Route path="/Pro1/Pro1-2" component={Pro1_2}></Route>
              </div>
-             const Pro2 = ()=> <h1>Hello2</h1>
-             const Pro3 = ()=> <h1>Hello3</h1>
+             const Pro2 = (props)=> <h1>Hello2---{props.match.params.id}</h1>
+             const Pro3 = (props)=> <div><button onClick={()=>goHome(props)}>跳转首页</button></div>
 
              const Pro1_1 = ()=> <h2>Hello1_1</h2>
              const Pro1_2 = ()=> <h2>Hello1_2</h2>
+
+             var goHome = (props) =>{
+                 console.log(props)
+                 props.history.push('/Pro1')
+             }
 
              const Pro = ()=>{
                  return (
                      <div>
                          <Router>
                              <Link to="/Pro1">Pro1</Link>
-                             <Link to="/Pro2">Pro2</Link>
+                             <Link to="/Pro2/2">Pro2</Link>
                              <Link to="/Pro3">Pro3</Link>
                              <Route path="/Pro1" component={Pro1}></Route>
-                             <Route path="/Pro2" component={Pro2}></Route>
+                             <Route path="/Pro2/:id" component={Pro2}></Route>
                              <Route path="/Pro3" component={Pro3}></Route>
                          </Router>
                      </div>

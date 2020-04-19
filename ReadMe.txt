@@ -506,6 +506,7 @@
          axios
        2.Vue中使用插件
          第三方插件：通过Vue.use()使用插件,在new Vue()之前导入
+         axios是第三方插件,但是axios没有为Vue提供use方法,如果想在Vue中使用,必须使用install方法重新封装
          自定义插件：Vue暴露install方法
             import axios from 'axios'
             let myaxios = {}

@@ -24,6 +24,10 @@ async function testResult () {
         console.log(data)
     })
 
+    //直接获取结果，如果没有await，返回的是Promise对象
+    let result = await doubleAfter2seconds(20);
+    console.log(result)
+
 }
 
 //总的执行流程5s

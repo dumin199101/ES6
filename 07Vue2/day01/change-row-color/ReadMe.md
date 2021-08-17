@@ -68,6 +68,16 @@ module.exports = {
     "plugins": [htmlplugin]
 }
 
+3.clean-webpack-plugin: 自动删除已存在的dist文件夹
+下载：
+npm install --save-dev clean-webpack-plugin
+配置：
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const  cleanwebpackplugin = new CleanWebpackPlugin();
+module.exports = {
+    "plugins": [cleanwebpackplugin]
+}
+
 ## webpack中的loader
 作用：webpack默认只能打包.js文件，通过不同loader加载器可以打包其它类型文件。
 
@@ -136,3 +146,41 @@ import './css/index.css'
 import './css/index.less'
 import logo from './images/logo.png'
 
+## 打包发布
+1.在package.json的scripts节点下，新增build脚本
+  "scripts": {
+    "build": "webpack --mode production"
+  }
+  --mode production  生成的文件在磁盘中，会对文件进行压缩
+  --mode development 生成的文件在磁盘中，不会对文件进行压缩
+  serve 生成的文件在内存中（优先级高）
+2.发布完成的文件，会打包到dist文件夹中
+
+## 优化图片及js存放路径
+"output": {
+    "path": path.join(__dirname, "dist"),
+    "filename": "js/bundle.js"
+},
+"module":{
+    "rules":[
+        {"test":/\.png|\.jpg|\.gif$/,"use":["url-loader?limit=30000&outputPath=images"]},
+    ]
+}
+
+## 配置SourceMap
+开发环境下，推荐在webpack.config.js中添加如下配置，保证运行时报错的行数跟源文件保持一致。
+module.exports = {
+    "devtool":"eval-source-map"
+}
+设置值：
+   nosource-source-map:能看到行号，看不到源代码（生产环境）
+   eval-source-map:能看到行号跟源代码（开发环境）
+
+## @标识符
+@ 表示src源代码目录
+在webpack.config.js中添加如下配置:
+"resolve":{
+    "alias":{
+        "@":path.join(__dirname,"./src/")
+    }
+}

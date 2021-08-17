@@ -16,5 +16,13 @@ module.exports = {
         open: true,
         port: 8088,
         host: "127.0.0.1"
+    },
+    "module":{
+        "rules":[
+            {"test":/\.js$/,"use":["babel-loader"],"exclude":/node_modules/},
+            {"test":/\.css$/,"use":["style-loader","css-loader"]},
+            {"test":/\.less$/,"use":["style-loader","css-loader","less-loader"]},
+            {"test":/\.png|\.jpg|\.gif$/,"use":["url-loader?limit=30000"]},
+        ]
     }
 }

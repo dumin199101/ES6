@@ -1,3 +1,5 @@
+# day01
+
 ## 项目案例
 1. 新建空白目录，执行npm init -y命令，初始化包管理配置文件pacage.json
 2. 新建src目录，存放源代码
@@ -184,3 +186,5 @@ module.exports = {
         "@":path.join(__dirname,"./src/")
     }
 }
+
+# day02

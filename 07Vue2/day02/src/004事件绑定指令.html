@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.13/vue.common.dev.js"></script>
+</head>
+<body>
+<div id="app">
+    <button @click="clickMe">点击我</button><br/>
+    <button @click="clickMe2">敲我</button><br/>
+    <button @click="clickMe3(1,$event)">来打我啊</button><br/>
+    <a href="https://www.baidu.com" @click.prevent="clickMe4">阻止跳转到百度</a>
+</div>
+</body>
+<script>
+    const app = new Vue({
+        el:'#app',
+        methods:{
+            clickMe(){
+                console.log("我被点击了")
+            },
+            clickMe2:function(){
+                console.log("我被敲了一下")
+            },
+            clickMe3:(n,e)=>{
+                console.log("傻逼，来打我啊")
+                console.log(e);
+            },
+            clickMe4(){
+                console.log("阻止默认修饰符")
+            }
+        }
+    })
+</script>
+</html>

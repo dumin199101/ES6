@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.13/vue.common.dev.js"></script>
+</head>
+<body>
+<div id="app">
+    姓名：<input type="text" v-bind:value="username" name="username"><br/>
+    地址：<input type="text" :value="address" name="address">
+</div>
+</body>
+<script>
+    const app = new Vue({
+        el:'#app',
+        data: {
+            username:"lisi",
+            address:"beijing",
+        }
+    })
+</script>
+</html>

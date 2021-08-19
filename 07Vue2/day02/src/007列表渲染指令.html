@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.13/vue.common.dev.js"></script>
+</head>
+<body>
+<div id="app">
+    <ul v-for="(student,index) in students" :key="student.id">
+        <li>索引：{{index}}-姓名：{{student.name}}-年龄：{{student.age}}-城市：{{student.city}}</li>
+    </ul>
+</div>
+</body>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            students: [
+                {name: "lisi", age: 24, city: "beijing"},
+                {name: "wangwu", age: 22, city: "tianjin"},
+                {name: "zhangsan", age: 42, city: "beijing"},
+                {name: "sunwen", age: 52, city: "beijing"},
+                {name: "zhaosi", age: 28, city: "shanghai"},
+            ]
+        }
+    })
+</script>
+</html>

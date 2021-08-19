@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.13/vue.common.dev.js"></script>
+</head>
+<body>
+<div id="app">
+    <p>{{msg}}</p>
+    <p>
+        <input type="text" v-model="msg">
+    </p>
+    <p>
+        <input type="text" :value="msg">
+    </p>
+    <p>
+        <input type="text" v-model.number="n1"> + <input type="text" v-model.number="n2"> = {{n1+n2}}
+    </p>
+    <p>
+        <input type="text" v-model.lazy="username">
+    </p>
+</div>
+</body>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            msg: "hello Vue!",
+            n1: 10,
+            n2: 20,
+            username:"wangfang"
+        }
+    })
+</script>
+</html>

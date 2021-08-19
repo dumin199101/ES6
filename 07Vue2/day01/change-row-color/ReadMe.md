@@ -186,3 +186,110 @@ module.exports = {
         "@":path.join(__dirname,"./src/")
     }
 }
+
+# day02
+
+## vue基础
+
+Vue定义：Vue是构建用户界面的前端框架
+
+Vue特性：1.数据驱动视图 2.双向数据绑定
+
+MVVM模型：Model-View-ViewModel
+
+    Model:当前页面渲染时所依赖的数据
+    View:当前页面渲染的DOM结构
+    ViewModel:Vue实例，MVVM的核心
+
+## Vue指令
+
+### 内容渲染指令
+
+1.v-text
+2.插值表达式{{}}
+3.v-html
+
+### 属性绑定指令
+
+1.v-bind
+完整形式：<input type="text" v-bind:value="username" name="username">
+简写形式：<input type="text" :value="address" name="address">
+
+### 事件绑定指令
+1.v-on
+<button @click="clickMe">点击我</button><br/>
+<button @click="clickMe2">敲我</button><br/>
+<button @click="clickMe3(1,$event)">来打我啊</button><br/>
+const app = new Vue({
+        el:'#app',
+        methods:{
+            clickMe(){
+                console.log("我被点击了")
+            },
+            clickMe2:function(){
+                console.log("我被敲了一下")
+            },
+            clickMe3:(n,e)=>{
+                console.log("傻逼，来打我啊")
+                console.log(e);
+            }
+        }
+})
+
+2.事件修饰符
+  .prevent 阻止默认行为
+  .stop 停止冒泡
+3.事件对象 $event
+
+
+### 双向绑定指令
+1.v-model
+2.v-model指令修饰符
+  .number 去除空白
+  .trim 转换数字
+  .lazy 取代input监听change事件
+  <p>
+      <input type="text" v-model.number="n1"> + <input type="text" v-model.number="n2"> = {{n1+n2}}
+  </p>
+
+
+### 条件渲染指令
+1.v-if v-if-else v-else
+2.v-show
+
+### 列表渲染指令
+1.v-for
+**绑定key属性,唯一性**
+<ul v-for="(student,index) in students" :key="student.id">
+      <li>索引：{{index}}-姓名：{{student.name}}-年龄：{{student.age}}-城市：{{student.city}}</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -264,6 +264,7 @@ const app = new Vue({
       <li>索引：{{index}}-姓名：{{student.name}}-年龄：{{student.age}}-城市：{{student.city}}</li>
 </ul>
 
+# day03
 
 
 

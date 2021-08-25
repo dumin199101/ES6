@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.13/vue.common.dev.js"></script>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model.number="value1">+<br>
+    <input type="text" v-model.number="value2"><br>
+    {{getSum}}
+</div>
+</body>
+<script>
+    const app = new Vue({
+        el:'#app',
+        data: {
+            value1:0,
+            value2:0
+        },
+        computed:{
+            getSum() {
+                return this.value1 + this.value2;
+            }
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.js"></script>
+</head>
+<body>
+</body>
+<script>
+    axios.get('http://localhost:8080/data.php')
+        .then(result=>console.log(result))
+        .catch(error=>console.log(error))
+    console.log("****************")
+    window.onload = async function(){
+        const {data:res} = await axios.get('http://localhost:8080/data.php');
+        console.log(res);
+    }
+</script>
+</html>

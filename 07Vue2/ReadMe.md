@@ -245,8 +245,8 @@ const app = new Vue({
 ### 双向绑定指令
 1.v-model
 2.v-model指令修饰符
-  .number 去除空白
-  .trim 转换数字
+  .number 转换数字
+  .trim 去除空白
   .lazy 取代input监听change事件
   <p>
       <input type="text" v-model.number="n1"> + <input type="text" v-model.number="n2"> = {{n1+n2}}
@@ -266,22 +266,199 @@ const app = new Vue({
 
 # day03
 
+## 过滤器
+
+注意：只能在Vue2中使用
+
+作用：过滤器是vue为开发者提供的功能，常用在文本格式化，类似于linux中的管道，过滤器只能用在插值表达式跟v-bind属性绑定中。
+
+### 局部过滤器
+
+```html
+<div id="app">{{msg|capital}}</div>
+```
+
+```javascript
+
+<script>
+    const app = new Vue({
+        el:'#app',
+        data: {
+            msg:"hello Vue!"
+        },
+        filters:{
+            upper(value) {
+                return value.toUpperCase();
+            },
+            capital(value){
+                return value.charAt(0).toUpperCase() + value.substring(1);
+            }
+        }
+    })
+</script>
+```
+
+### 全局过滤器
+
+全局过滤器必须在Vue实例之前注册
+
+```javascript
+
+Vue.filter('capital',function (value) {
+        return value.charAt(0).toUpperCase() + value.substring(1);
+    })
+
+const app = new Vue({
+    el:'#app',
+    data: {
+        msg:"hello Vue!"
+    }
+})
+
+```
+
+## 侦听器
+
+作用：监听数据变化
+
+函数方式侦听器：值变化触发一次
+对象方式侦听器：immediate选项自动触发一次
+
+```javascript
+
+<script>
+    const app = new Vue({
+            el:'#app',
+            data: {
+                msg:"hello Vue!",
+                username:"admin"
+            },
+            watch:{
+                msg:(newV,oldV)=>{
+                    console.log(newV,oldV)
+                },
+                username:{
+                    handler(v1,v2){
+                        console.log(v1,v2)
+                    },
+                    immediate:true
+                }
+            }
+</script>
+
+```
+
+## 计算属性
+
+作用：经过计算后得到的属性值
+
+const app = new Vue({
+        el:'#app',
+        data: {
+            value1:0,
+            value2:0
+        },
+        computed:{
+            getSum() {
+                return this.value1 + this.value2;
+            }
+        }
+ })
+
+## axios
+
+axios返回值是一个Promise对象，then(function(data){}):成功回调，catch(function(error){}):失败回调
+
+如果某个方法的返回值是Promise，那么这个方法可以用await修饰。
+
+await只能用在被async修饰的方法中
+
+axios({
+  method:'GET',
+  url:'',
+  params:{},
+  data:{}
+})
+
+axios.get('http://localhost:8080/data.php')
+        .then(result=>console.log(result))
+        .catch(error=>console.log(error))
+
+window.onload = async function(){
+        // 解构赋值 data重命名为res
+        const {data:res} = await axios.get('http://localhost:8080/data.php');
+        console.log(data);
+}
+
+## vue-cli
+
+单页面应用程序（SPA）：一个Web网站中，只有一个HTML页面。
+
+### 安装vue-cli
+npm install -g @vue/cli
+
+### 查看版本vue
+vue -V
+
+### 创建项目
+vue create 项目名称
+
+src目录：
+  assets 静态资源
+  components 组件
+  main.js 入口文件
+  App.vue 根组件（UI结构）
+
+vue项目运行流程
+  通过main.js把App.vue渲染到index.html的指定区域中
 
 
+## 组件
 
+组件组成：
+   template:组件的模板结构【定义UI】
 
+   <template>
+     <div id="app">
+       <img alt="Vue logo" src="./assets/logo.png">
+       <HelloWorld msg="Welcome to Your Vue.js App"/>
+     </div>
+   </template>
 
+   style:组件的样式【定义样式】
 
+   <style lang="less">
+   #app {
+     font-family: Avenir, Helvetica, Arial, sans-serif;
+     -webkit-font-smoothing: antialiased;
+     -moz-osx-font-smoothing: grayscale;
+     text-align: center;
+     color: #2c3e50;
+     margin-top: 60px;
+   }
+   </style>
 
+   script:组件的行为【定义数据、方法】
 
+   export default {
+     data(){
+        return {
+          msg:"hello demo"
+        }
+     },
+     methods(){
+        sayHi(){
+           console.log("Hi")
+        }
+     }
+   }
+   </script>
 
-
-
-
-
-
-
-
+注意：
+   vm实例的$mount()方法可替代el属性
+   vue组件中只能有一个根元素
+   启用less语法：<style lang="less">
+   组件数据定义时用data方法返回一个对象
 
 
 

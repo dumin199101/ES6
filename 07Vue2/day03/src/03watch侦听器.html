@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.13/vue.common.dev.js"></script>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="msg"><br>
+    {{msg}}<br/>
+    <input type="text" v-model="username"><br/>
+    {{username}}<br/>
+    <input type="text" v-model="info.addr"><br/>
+    {{info.addr}}
+</div>
+</body>
+<script>
+    const app = new Vue({
+        el:'#app',
+        data: {
+            msg:"hello Vue!",
+            username:"admin",
+            info:{
+                addr:'beijing'
+            }
+        },
+        watch:{
+            msg:(newV,oldV)=>{
+                console.log(newV,oldV)
+            },
+            username:{
+                handler(v1,v2){
+                    console.log(v1,v2)
+                },
+                immediate:true
+            },
+            'info.addr':{
+                handler(v1,v2){
+                    console.log(v1,v2)
+                }
+            }
+        }
+    })
+</script>
+</html>

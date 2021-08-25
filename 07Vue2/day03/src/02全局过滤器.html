@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.13/vue.common.dev.js"></script>
+</head>
+<body>
+<div id="app">{{msg|capital}}</div>
+</body>
+<script>
+
+    Vue.filter('capital',function (value) {
+        return value.charAt(0).toUpperCase() + value.substring(1);
+    })
+
+    const app = new Vue({
+        el:'#app',
+        data: {
+            msg:"hello Vue!"
+        }
+    })
+
+
+</script>
+</html>

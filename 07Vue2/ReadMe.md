@@ -413,9 +413,13 @@ vue项目运行流程
   通过main.js把App.vue渲染到index.html的指定区域中
 
 
+# day04
+
 ## 组件
 
-组件组成：
+定义：可复用的HTML结构
+
+### 定义组件
    template:组件的模板结构【定义UI】
 
    <template>
@@ -460,14 +464,90 @@ vue项目运行流程
    启用less语法：<style lang="less">
    组件数据定义时用data方法返回一个对象
 
+### 使用组件
+
+1.导入组件
+import Left from '@/components/Left.vue'
+2.注册组件
+export default {
+  name: 'App',
+  components: {
+    Left
+  }
+}
+3.使用组件
+<div id="app">
+    <Left/>
+</div>
+
+### 注册全局组件
+
+在main.js入口文件中，通过Vue.component()方法，可以注册全局组件
+Vue.component('MyCount',Count)
 
 
+### 组件的props属性
 
+父组件向子组件传值
+<MyCount :init="initLeftValue"/>
 
+子组件通过自定义属性接收来自父组件的值
+方式一：
+props:["init"]
+方式二：
+props:{
+    "自定义属性":{
+       default:"默认值",
+       type:"值类型",
+       required:true
+    }
+}
 
+注意：props中的自定义属性是只读的,通过其他值进行转存
+export default {
+        props:["init"],
+        data(){
+            return {
+                count:this.init
+            }
+        },
+        methods:{
+            add(){
+                return this.count = this.count + 1;
+            }
+        }
+}
 
+### 组件之间的样式冲突
 
+默认情况下，写在.vue组件中的样式全局生效，容易造成多个组件中样式冲突
 
+解决：添加scoped属性
+<style scoped lang="less">
+    h1{
+        color:yellow;
+    }
+</style>
 
+### 组件生命周期
 
+生命周期函数：
+   beforeCreate 创建之前
+   created 组件已创建 【props、data、methods此时都可使用，数据初始化一般在此完成】
+   beforeMount 渲染之前
+   mounted  组件已渲染【可操作DOM结构】
+   beforeUpdate 数据修改之前
+   updated 数据已修改
+   beforeDestory 销毁之前
+   destoryed 组件已销毁
 
+### 组件数据共享
+
+1.父组件向子组件传递数据
+使用props自定义属性
+
+2.子组件向父组件传递数据
+使用自定义事件
+
+3.兄弟组件传递数据
+使用eventBus

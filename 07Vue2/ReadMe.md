@@ -545,9 +545,124 @@ export default {
 
 1.父组件向子组件传递数据
 使用props自定义属性
+子组件：通过props自定义属性接收数据
+export default {
+        props:["init"],
+        data(){
+            return {
+                count:this.init
+            }
+        },
+        methods:{
+            add(){
+                return this.count = this.count + 1;
+            }
+        }
+}
+父组件：通过属性绑定指令传递数据
+<MyCount :init="initLeftValue"/>
 
 2.子组件向父组件传递数据
 使用自定义事件
+子组件：通过$emit触发自定义事件
+<template>
+    <div>
+        <h1>This Left Region</h1>
+        <button @click="say">子组件向父组件传递数据</button>
+    </div>
+</template>
+
+<script>
+    export default {
+        data(){
+            return {
+                msg:"Hello Left"
+            }
+        },
+        methods:{
+            say(){
+               this.$emit("passMsg",this.msg)
+            }
+        }
+
+    }
+</script>
+父组件：通过事件绑定指令监听自定义事件接收传递数据
+<Left @passMsg="getMsg"/>
+
+export default {
+  name: 'App',
+  components: {
+    HelloWorld,
+    Left
+  },
+  data(){
+      return {
+          initLeftValue:10
+      }
+  },
+  methods:{
+      getMsg(val){
+          console.log(val);
+      }
+  }
+}
 
 3.兄弟组件传递数据
 使用eventBus
+import Vue from 'vue';
+export default new Vue()
+
+组件1：使用$emit()触发事件，发送数据
+sendMsg(){
+    bus.$emit("sendMsg",this.msg)
+}
+组件2：使用$on()监听事件，接收数据
+created(){
+    bus.$on('sendMsg',(msg)=>{
+        console.log("接收来自兄弟组件的数据："+msg);
+    })
+}
+
+# day05
+
+## ref引用
+
+作用：获取DOM元素
+<p ref="counter">{{count}}</p>
+this.$refs.counter.style.color = 'red';
+
+## $nextTick(callback)
+
+作用：将回调函数延迟在下一次DOM渲染完成后执行
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

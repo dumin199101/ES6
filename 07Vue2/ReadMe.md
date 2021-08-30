@@ -699,13 +699,137 @@ this.$refs.counter.style.color = 'red';
 
     //push、 shift、 pop、 unshift、 reverse、 sort、 splice方法会对原来的数组进行修改，其他的数组操作方法只有返回值不同，对原数组都没有影响，即原数组不变。
 
+# day06
+
+## 动态组件
+
+定义：动态的切换组件的显示与隐藏
+
+使用<component></component>标签做占位符，绑定is属性，控制要展示的组件
+
+<component :is="show"></component>
+
+### 动态组件缓存
+使用<keep-alive></keep-alive>标签对组件进行缓存，保持状态值。
+
+<keep-alive>
+    <component :is="show"></component>
+</keep-alive>
+
+组件缓存相关生命周期函数：activated,deactivated
+
+activated:组件创建跟激活的时候都会触发
+deactivated:组件缓存的时候触发
+
+activated(){
+        console.log("组件被激活")
+    },
+deactivated(){
+        console.log("组件被缓存")
+    }
+
+keep-alive标签提供include属性跟exclude属性，可以指定缓存的组件，多个组件用逗号分隔。
+<keep-alive include="Left,Right">
+    <component :is="show"></component>
+</keep-alive>
 
 
+组件声明时，提供name属性可以用在include属性中，而非组件注册时的名称。
+
+export default {
+  name: 'HelloWorld'
+}
+
+## 插槽
+slot允许开发者封装组件时允许把用户自定义部分定义为插槽。
+插槽指令：v-slot,v-slot:title 简写形式：#title
+
+### 具名插槽
+ 给插槽起名,根据名字使用插槽，插槽默认name值为default
+
+<div id="header">
+    <slot name="header"></slot>
+</div>
+
+<template #header>
+    <h3>Hello,Vue</h3>
+</template>
+
+### 作用域插槽
+ 给插槽绑定属性,使用作用域插槽时，解构赋值{title:"Hello"},title的值就是Hello
+ <div id="header">
+     <slot name="header" :title="title"></slot>
+ </div>
+
+ <template #header="{title}">
+     <h3>{{title}}</h3>
+ </template>
+
+插槽实例：
+
+<template>
+    <div id="article-container">
+        <div id="header">
+            <slot name="header" :title="title"></slot>
+        </div>
+        <div id="content">
+            <slot name="content" v-for="article in articles" :article="article"></slot>
+        </div>
+        <div id="footer">
+            <slot name="footer"></slot>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        data(){
+            return {
+                title:"Hello Vue.js",
+                articles:[
+                    {title:"武松打虎",price:300,color:"彩色"},
+                    {title:"邦锦美朵",price:100,color:"彩色"},
+                    {title:"草船借箭",price:200,color:"黑白色"},
+                    {title:"三打白骨精",price:300,color:"彩色"},
+                ]
+            }
+        }
+    }
+</script>
+
+<style lang="less" scoped="">
+    #article-container {
+        div{
+            min-height: 100px;
+        }
+        #header {
+            background: pink;
+        }
+        #content {
+            background: lime;
+        }
+        #footer {
+            background: lightblue;
+        }
+    }
+</style>
 
 
+App.vue
 
-
-
+<Article>
+    <template #header="{title}">
+        <h3>{{title}}</h3>
+    </template>
+    <template #content="{article}">
+        <h1>书名：{{article.title}}</h1>
+        <h3>价格：{{article.price}}</h3>
+        <p>颜色：{{article.color}}</p>
+    </template>
+    <template v-slot:footer>
+        <div>底部区域</div>
+    </template>
+</Article>
 
 
 

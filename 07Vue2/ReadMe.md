@@ -636,7 +636,68 @@ this.$refs.counter.style.color = 'red';
 
 作用：将回调函数延迟在下一次DOM渲染完成后执行
 
+## es6 数组
 
+    const arr1 = [1, 2, 5, 7, 8]
+    const arr2 = [2, 4, 6, 8, 10]
+    // 1.concat(arr1,arr2,...arrN)方法:合并多个数组，返回合并后的新数组
+    const arr3 = arr1.concat(arr2)
+    console.log(arr3);
+    // 2.every(callback[,argsN])方法：检测数组中的每一项是否通过callback检查，通过返回true，不通过返回false
+    const bool = arr1.every(item => item >= 2)
+    console.log(bool)
+    // 3.filter(callback[,argsN])方法：返回通过callback检查的所有元素
+    const arr4 = arr1.filter(item => item >= 5)
+    console.log(arr4)
+    // 4.find(callback[,argsN])方法：返回通过callback检查的第一个元素
+    const val = arr1.find(item => item > 6)
+    console.log(val)
+    // 5.findIndex(callback[,argsN])方法：返回通过callback检查的第一个元素的索引
+    const index = arr1.findIndex(item => item > 6)
+    console.log(index)
+    // 6.includes(searchElement[,fromIndex])方法：查找数组中是否包含某个元素
+    const bool2 = arr1.includes(5)
+    console.log(bool2)
+    // 7.indexOf(searchElement[,fromIndex])方法：查找数组中给定元素的索引值
+    const val2 = arr1.indexOf(5)
+    console.log(val2);
+    // 8.join(seperator=','):将数组元素连接成字符串
+    const str1 = arr1.join()
+    console.log(str1)
+    // 9.pop(),shift()：数组的首尾删除元素,返回被删除的元素
+    const val3 = arr1.pop()
+    console.log(val3)
+    const val4 = arr1.shift()
+    console.log(val4)
+    console.log(arr1)
+    // 10.push(),unshift():数组的首尾添加元素,返回添加后新数组长度
+    arr1.push(20, 30)
+    arr1.unshift(40, 50)
+    console.log(arr1)
+    // 11.map(callback[,argsN]):对数组中的每一项进行callback处理，每一项返回值组成一个新数组
+    const arr5 = arr2.map(item => item * 2)
+    console.log(arr5)
+    // 12.reduce(callback[,initVal]):对数组中的每一项进行callback处理，每一项返回值进行合并处理，返回一个新值
+    const val5 = arr2.reduce((sum, item) => {
+        return sum + item
+    }, 0)
+    console.log(val5)
+    // 13.reverse():数组反转,原数组上进行反转
+    arr2.reverse()
+    console.log(arr2)
+    // 14.slice([begin,end]):数组截取
+    const arr7 = arr2.slice(1, 4)
+    console.log(arr7)
+    // 15.sort(callback):按照规则数组进行排序
+    const arr8 = [1, 9, 10, 2, 5].sort((v1, v2) => {
+        return v1 - v2 //升序
+    })
+    console.log(arr8)
+    // 16.splice(start[,deleteCount,arr1,arr2...arrN]):对数组中从start位置开始，删除deleteCount个元素，然后添加arr1...arrN个元素
+    arr2.splice(1, 2, 3, 5, 7, 9)
+    console.log(arr2)
+
+    //push、 shift、 pop、 unshift、 reverse、 sort、 splice方法会对原来的数组进行修改，其他的数组操作方法只有返回值不同，对原数组都没有影响，即原数组不变。
 
 
 

@@ -831,10 +831,47 @@ App.vue
     </template>
 </Article>
 
+## 自定义指令
+
+### 局部自定义指令
+directives:{
+    'color':{
+         bind(el,binding){
+             el.style.color = binding.value;
+         },
+         update(el,binding){
+             el.style.color = binding.value;
+         }
+      }
+}
+
+当DOM重新渲染时，触发update函数，当组件第一次渲染时，触发bind函数
+bind函数跟update函数逻辑相同时，可简写为function形式
 
 
+### 全局自定义指令
+Vue.directive('color',function(el,binding){
+   el.style.color = binding.value;
+})
 
+## eslint
 
+作用：规范代码风格，Javascript代码规范检查工具。
+
+## Vue封装axios
+
+封装：
+1.避免组件中重复导入工作
+2.使用baseURL,减少冗余
+import axios from 'axios'
+axios.defaults.baseURL = 'http://localhost:8080'
+Vue.prototype.$http = axios
+
+使用：
+async created() {
+    const {data: res} = await this.$http.get('data.php')
+    console.log(res)
+}
 
 
 

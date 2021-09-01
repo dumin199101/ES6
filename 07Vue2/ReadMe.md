@@ -351,7 +351,7 @@ const app = new Vue({
 ## 计算属性
 
 作用：经过计算后得到的属性值
-
+```javascript
 const app = new Vue({
         el:'#app',
         data: {
@@ -364,6 +364,7 @@ const app = new Vue({
             }
         }
  })
+```
 
 ## axios
 
@@ -372,7 +373,7 @@ axios返回值是一个Promise对象，then(function(data){}):成功回调，cat
 如果某个方法的返回值是Promise，那么这个方法可以用await修饰。
 
 await只能用在被async修饰的方法中
-
+```javascript
 axios({
   method:'GET',
   url:'',
@@ -389,6 +390,7 @@ window.onload = async function(){
         const {data:res} = await axios.get('http://localhost:8080/data.php');
         console.log(data);
 }
+```
 
 ## vue-cli
 
@@ -421,16 +423,17 @@ vue项目运行流程
 
 ### 定义组件
    template:组件的模板结构【定义UI】
-
+   ```html
    <template>
      <div id="app">
        <img alt="Vue logo" src="./assets/logo.png">
        <HelloWorld msg="Welcome to Your Vue.js App"/>
      </div>
    </template>
+   ```
 
    style:组件的样式【定义样式】
-
+   ```html
    <style lang="less">
    #app {
      font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -441,9 +444,11 @@ vue项目运行流程
      margin-top: 60px;
    }
    </style>
+   ```
 
    script:组件的行为【定义数据、方法】
-
+   ```javascript
+   <script>
    export default {
      data(){
         return {
@@ -457,6 +462,7 @@ vue项目运行流程
      }
    }
    </script>
+   ```
 
 注意：
    vm实例的$mount()方法可替代el属性
@@ -467,18 +473,24 @@ vue项目运行流程
 ### 使用组件
 
 1.导入组件
+```javascript
 import Left from '@/components/Left.vue'
+```
 2.注册组件
+```javascript
 export default {
   name: 'App',
   components: {
     Left
   }
 }
+```
 3.使用组件
+```html
 <div id="app">
     <Left/>
 </div>
+```
 
 ### 注册全局组件
 
@@ -504,6 +516,7 @@ props:{
 }
 
 注意：props中的自定义属性是只读的,通过其他值进行转存
+```javascript
 export default {
         props:["init"],
         data(){
@@ -517,6 +530,7 @@ export default {
             }
         }
 }
+```
 
 ### 组件之间的样式冲突
 
@@ -546,6 +560,7 @@ export default {
 1.父组件向子组件传递数据
 使用props自定义属性
 子组件：通过props自定义属性接收数据
+```javascript
 export default {
         props:["init"],
         data(){
@@ -559,19 +574,22 @@ export default {
             }
         }
 }
+```
 父组件：通过属性绑定指令传递数据
 <MyCount :init="initLeftValue"/>
 
 2.子组件向父组件传递数据
 使用自定义事件
 子组件：通过$emit触发自定义事件
+```html
 <template>
     <div>
         <h1>This Left Region</h1>
         <button @click="say">子组件向父组件传递数据</button>
     </div>
 </template>
-
+```
+```javascript
 <script>
     export default {
         data(){
@@ -587,9 +605,10 @@ export default {
 
     }
 </script>
+```
 父组件：通过事件绑定指令监听自定义事件接收传递数据
 <Left @passMsg="getMsg"/>
-
+```javascript
 export default {
   name: 'App',
   components: {
@@ -607,37 +626,46 @@ export default {
       }
   }
 }
+```
 
 3.兄弟组件传递数据
 使用eventBus
+```javascript
 import Vue from 'vue';
 export default new Vue()
+```
 
 组件1：使用$emit()触发事件，发送数据
+```javascript
 sendMsg(){
     bus.$emit("sendMsg",this.msg)
 }
+```
 组件2：使用$on()监听事件，接收数据
+```javascript
 created(){
     bus.$on('sendMsg',(msg)=>{
         console.log("接收来自兄弟组件的数据："+msg);
     })
 }
-
+```
 # day05
 
 ## ref引用
 
 作用：获取DOM元素
+```html
 <p ref="counter">{{count}}</p>
+```
+```javascript
 this.$refs.counter.style.color = 'red';
-
+```
 ## $nextTick(callback)
 
 作用：将回调函数延迟在下一次DOM渲染完成后执行
 
 ## es6 数组
-
+    ```javascript
     const arr1 = [1, 2, 5, 7, 8]
     const arr2 = [2, 4, 6, 8, 10]
     // 1.concat(arr1,arr2,...arrN)方法:合并多个数组，返回合并后的新数组
@@ -698,6 +726,7 @@ this.$refs.counter.style.color = 'red';
     console.log(arr2)
 
     //push、 shift、 pop、 unshift、 reverse、 sort、 splice方法会对原来的数组进行修改，其他的数组操作方法只有返回值不同，对原数组都没有影响，即原数组不变。
+    ```
 
 # day06
 
@@ -706,39 +735,41 @@ this.$refs.counter.style.color = 'red';
 定义：动态的切换组件的显示与隐藏
 
 使用<component></component>标签做占位符，绑定is属性，控制要展示的组件
-
+```html
 <component :is="show"></component>
-
+```
 ### 动态组件缓存
 使用<keep-alive></keep-alive>标签对组件进行缓存，保持状态值。
-
+```html
 <keep-alive>
     <component :is="show"></component>
 </keep-alive>
-
+```
 组件缓存相关生命周期函数：activated,deactivated
 
 activated:组件创建跟激活的时候都会触发
 deactivated:组件缓存的时候触发
-
+```javascript
 activated(){
         console.log("组件被激活")
     },
 deactivated(){
         console.log("组件被缓存")
     }
-
+```
 keep-alive标签提供include属性跟exclude属性，可以指定缓存的组件，多个组件用逗号分隔。
+```html
 <keep-alive include="Left,Right">
     <component :is="show"></component>
 </keep-alive>
-
+```
 
 组件声明时，提供name属性可以用在include属性中，而非组件注册时的名称。
-
+```javascript
 export default {
   name: 'HelloWorld'
 }
+```
 
 ## 插槽
 slot允许开发者封装组件时允许把用户自定义部分定义为插槽。
@@ -746,7 +777,7 @@ slot允许开发者封装组件时允许把用户自定义部分定义为插槽�
 
 ### 具名插槽
  给插槽起名,根据名字使用插槽，插槽默认name值为default
-
+```html
 <div id="header">
     <slot name="header"></slot>
 </div>
@@ -754,9 +785,11 @@ slot允许开发者封装组件时允许把用户自定义部分定义为插槽�
 <template #header>
     <h3>Hello,Vue</h3>
 </template>
+```
 
 ### 作用域插槽
  给插槽绑定属性,使用作用域插槽时，解构赋值{title:"Hello"},title的值就是Hello
+ ```html
  <div id="header">
      <slot name="header" :title="title"></slot>
  </div>
@@ -764,9 +797,10 @@ slot允许开发者封装组件时允许把用户自定义部分定义为插槽�
  <template #header="{title}">
      <h3>{{title}}</h3>
  </template>
+ ```
 
 插槽实例：
-
+```html
 <template>
     <div id="article-container">
         <div id="header">
@@ -813,10 +847,10 @@ slot允许开发者封装组件时允许把用户自定义部分定义为插槽�
         }
     }
 </style>
-
+```
 
 App.vue
-
+```html
 <Article>
     <template #header="{title}">
         <h3>{{title}}</h3>
@@ -830,10 +864,12 @@ App.vue
         <div>底部区域</div>
     </template>
 </Article>
+```
 
 ## 自定义指令
 
 ### 局部自定义指令
+```javascript
 directives:{
     'color':{
          bind(el,binding){
@@ -844,15 +880,17 @@ directives:{
          }
       }
 }
-
+```
 当DOM重新渲染时，触发update函数，当组件第一次渲染时，触发bind函数
 bind函数跟update函数逻辑相同时，可简写为function形式
 
 
 ### 全局自定义指令
+```javascript
 Vue.directive('color',function(el,binding){
    el.style.color = binding.value;
 })
+```
 
 ## eslint
 
@@ -863,28 +901,180 @@ Vue.directive('color',function(el,binding){
 封装：
 1.避免组件中重复导入工作
 2.使用baseURL,减少冗余
+```javascript
 import axios from 'axios'
 axios.defaults.baseURL = 'http://localhost:8080'
 Vue.prototype.$http = axios
+```
 
 使用：
+```javascript
 async created() {
     const {data: res} = await this.$http.get('data.php')
     console.log(res)
 }
+```
+
+# day07
+
+## 路由
+
+定义：Hash地址与组件之间的对应关系
+
+### vue-router入门
+
+vue-router是vue.js官方给出的路由解决方案。它只能结合vue项目进行使用，能够轻松的管理SPA项目中组件的切换。
+
+1.安装vue-router
+npm i vue-router@3.5.2 -S
+2.创建路由模块
+```javascript
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+
+Vue.use(VueRouter)
+
+const router = new VueRouter()
+
+export default router
+```
+3.导入并挂载路由模块
+```javascript
+import router from '@/router/index.js'
+
+new Vue({
+  render: h => h(App),
+  router
+}).$mount('#app')
+```
+4.声明路由链接跟占位符
+```html
+<template>
+  <div class="app-container">
+    <h1>App 根组件</h1>
+
+    <router-link to="/home">首页</router-link>
+    <router-link to="/movie">电影</router-link>
+    <router-link to="/about">关于</router-link>
+
+    <hr />
+
+    <router-view></router-view>
+  </div>
+</template>
+```
+5.声明路由配置规则
+```javascript
+const router = new VueRouter({
+    routes:[
+        {path:"/home",component:Home},
+        {path:"/movie",component:Movie},
+        {path:"/about",component:About},
+    ]
+})
+```
+
+### vue-router常见用法
+
+1.路由重定向
+
+```javascript
+const router = new VueRouter({
+    routes:[
+        {path:"/",redirect:"/home"},
+        {path:"/home",component:Home},
+        {path:"/movie",component:Movie},
+        {path:"/about",component:About},
+    ]
+})
+```
+
+2.嵌套路由
+
+```html
+<template>
+  <div class="about-container">
+    <h3>About 组件</h3>
+    <router-link to="/about/tab1">Tab1</router-link>
+    <router-link to="/about/tab2">Tab2</router-link>
+    <hr/>
+    <router-view></router-view>
+  </div>
+</template>
+```
+
+```javascript
+const router = new VueRouter({
+    routes:[
+        {path:"/",redirect:"/home"},
+        {path:"/home",component:Home},
+        {path:"/movie",component:Movie},
+        {
+            path:"/about",
+            component:About,
+            redirect:"/about/tab1",
+            children:[
+                {path:"tab1",component:Tab1},
+                {path:"tab2",component:Tab2}
+            ]
+        },
+    ]
+})
+```
+
+3. 动态路由匹配
+
+```javascript
+{path:"/movie/:id",component:Movie,props:true}
+```
+
+$route:路由参数对象
+
+通过$route.params对象跟props都可以接收路由参数
+
+```html
+<div>{{$route.params.id}}---{{id}}</div>
+<div>{{$route.fullPath}}</div>
+<div>{{$route.path}}</div>
+<div>{{$route.query}}</div>
+```
+
+```shell
+1---1
+/movie/1?browseCount=10&limit=10
+/movie/1
+{ "browseCount": "10", "limit": "10" }
+```
+
+4. 路由导航对象
+
+$router:路由导航对象
+
+方法：
+  push(path) 跳转到指定hash地址，并增加一条历史记录
+  replace(path) 跳转到指定的hash地址并替换掉当前的历史记录
+  go(num) 实现导航历史前进、后退
+  forward() 前进
+  back() 后退
 
 
+5. 导航守卫
 
+导航守卫可以控制路由的访问权限
 
-
-
-
-
-
-
-
-
-
-
+```javascript
+router.beforeEach((to,from,next)=>{
+    if(to.path==='/home'){
+        const token = localStorage.getItem("token")
+        if(token){
+            next()
+        }else{
+            next('/login')
+        }
+    }else{
+        next()
+    }
+})
+```
 
 

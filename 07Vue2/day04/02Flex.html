@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flex布局</title>
+    <style type="text/css">
+        #app{
+           border:1px solid red;
+           width:80%;
+           margin:30px auto;
+           height:auto;
+        }
+        .container1{
+            display:flex;
+            flex-direction: row;
+            /*flex-direction: row-reverse;*/
+            /*flex-direction: column;*/
+            /*flex-direction: column-reverse;*/
+            flex-wrap: nowrap;
+            /*flex-wrap: wrap;*/
+            /*flex-wrap: wrap-reverse;*/
+            justify-content: flex-start;
+            /*justify-content: flex-end;*/
+            /*justify-content: center;*/
+            /*justify-content: space-between;*/
+            /*justify-content: space-around;*/
+        }
+        .item{
+            width:20%;
+            height:50px;
+            background:yellow;
+            margin-top:30px;
+            margin-right: 30px;
+        }
+        .container2{
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            /*align-items: flex-end;*/
+            /*align-items: center;*/
+            /*align-items: stretch;*/
+            /*align-items: baseline;*/
+        }
+
+        .item2{
+            width:20%;
+            height:150px;
+            background:yellow;
+            margin-right: 30px;
+        }
+
+        .item3{
+            width:20%;
+            height:100px;
+            background:yellow;
+            margin-right: 30px;
+        }
+
+        .item4{
+            width:20%;
+            height:100px;
+            background:yellow;
+            margin-right: 30px;
+        }
+
+    </style>
+</head>
+<body>
+
+  <div id="app">
+      <div class="container1">
+          <div class="item"></div>
+          <div class="item"></div>
+          <div class="item"></div>
+      </div>
+
+      <hr>
+
+      <div class="container1">
+          <div class="item"></div>
+          <div class="item"></div>
+          <div class="item"></div>
+          <div class="item"></div>
+          <div class="item"></div>
+          <div class="item"></div>
+          <div class="item"></div>
+          <div class="item"></div>
+          <div class="item"></div>
+      </div>
+
+      <hr>
+
+      <div class="container1">
+          <div class="item">Hello</div>
+          <div class="item">World</div>
+          <div class="item">Java</div>
+      </div>
+
+      <hr>
+
+      <div class="container2">
+          <div class="item2">Hello</div>
+          <div class="item3">World</div>
+          <div class="item4">Java</div>
+      </div>
+
+  </div>
+
+</body>
+</html>

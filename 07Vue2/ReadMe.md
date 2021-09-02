@@ -1077,4 +1077,56 @@ router.beforeEach((to,from,next)=>{
 })
 ```
 
+# day08
+
+## Flex布局
+
+Flex布局简称流式布局，有两条轴，Main轴（横轴）跟Cross轴（纵轴）
+
+### flex-direction
+
+作用：决定主轴的方向（即项目的排列方向）。
+
+取值：
+
+row(默认)  主轴为水平方向，起点在左端。
+row-reverse 主轴为水平方向，起点在右端。
+column 主轴为垂直方向，起点在上沿。
+column-reverse 主轴为垂直方向，起点在下沿。
+
+### flex-wrap
+
+作用：默认情况下，项目都排在一条线（又称”轴线”）上。flex-wrap属性定义，如果一条轴线排不下，如何换行。
+
+取值：
+
+nowrap:不换行（默认）
+wrap:换行,第一行在上方
+wrap-reverse:反向换行，第一行在下方
+
+### flex-flow
+
+作用：flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。
+
+### justify-content
+
+作用：定义了项目在主轴上的对齐方式。
+
+取值：
+flex-start 左对齐（默认）
+flex-end 右对齐
+center 居中
+space-between 两端对齐，项目之间的间隔都相等。
+space-around 每个项目两侧的间隔相等。
+
+### align-items
+
+作用：定义了项目在交叉轴上的对齐方式。
+
+取值：
+flex-start 交叉轴的起点对齐。
+flex-end 交叉轴的终点对齐。
+center 交叉轴的中点对齐。
+baseline 项目的第一行文字的基线对齐。
+stretch 如果项目未设置高度或设为auto，将占满整个容器的高度(默认)
 

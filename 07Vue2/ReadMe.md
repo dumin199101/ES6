@@ -1130,3 +1130,150 @@ center 交叉轴的中点对齐。
 baseline 项目的第一行文字的基线对齐。
 stretch 如果项目未设置高度或设为auto，将占满整个容器的高度(默认)
 
+# day09
+
+## vuex
+
+定义：Vuex是组件全局状态管理机制，可以实现组件之间的数据共享。
+
+应用场景：
+    一般情况下，只有组件之间共享的数据，才有必要存储到Vuex中。
+    对于组件中的私有数据，依旧存储在组件自身的data中即可。
+
+使用vue-cli的GUI命令
+```shell
+  vue ui
+```
+
+### 核心概念
+
+1. State
+
+State 提供唯一的公共数据源，所有共享的数据都要统一放到 Store 的 State 中进行存储。
+
+①. 组件访问 State 中数据的第一种方式：
+
+>> this.$store.state.全局数据名称
+
+②. 组件访问 State 中数据的第二种方式：
+
+// 1. 从 vuex 中按需导入 mapState 函数
+```javascript
+import { mapState } from 'vuex'
+```
+// 2. 将全局数据，映射为当前组件的计算属性
+```javascript
+computed: {
+    ...mapState(['count'])
+}
+```
+
+2. Getters
+Getter 用于对 Store 中的数据进行加工处理形成新的数据。
+
+①. 定义Getter
+
+```javascript
+getters: {
+    getCount(state){
+        return `当前计数值为【${state.count}】`
+    }
+},
+```
+
+②. 使用Getter
+
+使用 getters 的第一种方式：
+
+>> this.$store.getters.名称
+
+使用 getters 的第二种方式：
+
+```javascript
+import {mapGetters} from 'vuex'
+ computed: {
+    ...mapGetters(["getCount"])
+},
+```
+
+3. Mutations
+Mutation 用于变更 Store中 的数据。
+
+①. 定义Mutation：
+```javascript
+mutations: {
+    add(state) {
+        state.count++;
+    },
+    sub(state, step) {
+        state.count -= step
+    }
+}
+```
+
+②. 触发Mutation
+
+方式一：
+```javascript
+this.$store.commit("add")
+```
+
+方式二：
+从 vuex 中按需导入 mapMutations 函数
+```javascript
+import {mapMutations} from 'vuex'
+```
+将指定的 mutations 函数，映射为当前组件的 methods 函数
+```javascript
+  methods: {
+     ... mapMutations(["sub"]),
+  }
+```
+
+4. Actions
+Action 用于处理异步任务。
+如果通过异步操作变更数据，必须通过 Action，而不能使用 Mutation，但是在 Action 中还是要通过触发Mutation 的方式间接变更数据。
+
+①. 定义Action
+```javascript
+actions: {
+    addAsync(store) {
+        setTimeout(function () {
+            store.commit("add")
+        }, 1000)
+    },
+    subAsync(store, step) {
+        setTimeout(function () {
+            store.commit("sub", step)
+        }, 1000)
+    }
+},
+```
+
+②. 触发Action
+
+方式一：
+```javascript
+ this.$store.dispatch("addAsync")
+```
+
+方式二：
+从 vuex 中按需导入 mapActions 函数
+```javascript
+import { mapActions } from 'vuex'
+```
+将指定的 actions 函数，映射为当前组件的 methods 函数
+```javascript
+methods: {
+    ...mapActions(["subAsync"])
+}
+```
+
+5. Modules
+
+Module是模块的意思，为什么会在Vuex中使用模块呢？
+
+    1. Vues使用单一状态树，意味着很多状态都会交给Vuex来管理
+    2. 当应用变的非常复杂时，Store对象就可能变的相当臃肿
+    3. 为解决这个问题，Vuex允许我们将store分割成模块(Module)，并且每个模块拥有自己的State、Mutation、Actions、Getters等
+

@@ -3,11 +3,13 @@
         <h3>This is Right Region</h3>
         <button @click="add">给组件值加10</button>
         <p>{{num}}</p>
+        <GrandSon></GrandSon>
     </div>
 
 </template>
 
 <script>
+    import GrandSon from '@/components/GrandSon.vue'
     export default {
         data(){
             return {
@@ -24,6 +26,9 @@
         },
         deactivated(){
             console.log("组件被缓存")
+        },
+        components:{
+            GrandSon
         }
     }
 </script>

@@ -75,6 +75,9 @@
                 this.color = 'yellow'
             }
         },
+        provide:{
+           "appname":"BingBingPang"
+        },
         async created() {
             const {data: res} = await this.$http.get('data.php')
             console.log(res)

@@ -649,6 +649,33 @@ created(){
     })
 }
 ```
+
+4.父组件与孙组件传递数据
+
+使用provide-inject机制
+
+父组件：
+
+```javascript
+provide:{
+   "appname":"BingBingPang"
+},
+```
+
+孙组件：
+
+```javascript
+<template>
+    <h3>{{appname}}</h3>
+</template>
+
+<script>
+    export default {
+        inject:["appname"]
+    }
+</script>
+```
+
 # day05
 
 ## ref引用

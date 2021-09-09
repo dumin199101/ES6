@@ -1104,6 +1104,47 @@ router.beforeEach((to,from,next)=>{
 })
 ```
 
+### 路由懒加载
+
+① 使用ES6 中的import进行懒加载
+
+指定了相同的webpackChunkName，会合并打包成一个js文件,否则每个组件打包成一个文件
+
+```javascript
+const Foo = () => import(/* webpackChunkName: "group-foo" */ './Foo.vue')
+export default new Router({
+  routes: [{
+    path: '/',
+    name: 'Foo',
+    component: Foo
+  }]
+})
+```
+
+② 使用webpack的require.ensure技术
+
+语法：require.ensure(dependencies: String[], callback: function(require), chunkName: String)
+
+
+```javascript
+// r就是resolve
+{
+  path: '/home',
+  name: 'home',
+  component: r => require.ensure([], () => r(require('@/components/home')), 'demo1')
+}, {
+  path: '/index',
+  name: 'Index',
+  component: r => require.ensure([], () => r(require('@/components/index')), 'demo1')
+}, {
+  path: '/about',
+  name: 'about',
+  component: r => require.ensure([], () => r(require('@/components/about')), 'demo2')
+}
+
+```
+
+
 # day08
 
 ## Flex布局

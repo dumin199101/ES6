@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        [v-cloak]{
+           display:none;
+        }
+    </style>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.13/vue.common.dev.js"></script>
+</head>
+<body>
+<div id="app">
+    <h3 v-cloak v-once>{{num}}</h3>
+    <button @click="add">点击+1</button>
+    <h3 v-pre>{{num}}</h3>
+</div>
+</body>
+<script>
+    const app = new Vue({
+        el:'#app',
+        data: {
+            msg:"hello Vue!",
+            num:0
+        },
+        methods:{
+            add(){
+                this.num++
+            }
+        }
+    })
+</script>
+</html>

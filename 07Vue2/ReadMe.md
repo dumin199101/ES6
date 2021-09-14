@@ -260,9 +260,28 @@ const app = new Vue({
 ### 列表渲染指令
 1.v-for
 **绑定key属性,唯一性**
+
+原理：虚拟DOM对比算法，可以提高渲染效率。
+
 <ul v-for="(student,index) in students" :key="student.id">
       <li>索引：{{index}}-姓名：{{student.name}}-年龄：{{student.age}}-城市：{{student.city}}</li>
 </ul>
+
+### 其他指令
+
+v-once: 只解析渲染一次
+v-cloak: 解决屏幕闪动
+v-pre: 跳过解析渲染
+
+```html
+[v-cloak]{
+       display:none;
+    }
+<h3 v-cloak v-once>{{num}}</h3>
+<button @click="add">点击+1</button>
+<h3 v-pre>{{num}}</h3>
+```
+
 
 # day03
 
@@ -1345,3 +1364,120 @@ Module是模块的意思，为什么会在Vuex中使用模块呢？
     2. 当应用变的非常复杂时，Store对象就可能变的相当臃肿
     3. 为解决这个问题，Vuex允许我们将store分割成模块(Module)，并且每个模块拥有自己的State、Mutation、Actions、Getters等
 
+# day10
+
+## Object类defineProperty方法
+
+作用：对自定义属性进行控制可读、可写、可删除权限
+
+> value:"beijing",  属性值
+> enumerable:true,  可遍历
+> writable:true,    可修改
+> configurable:true 可删除
+
+> get 获得属性值
+> set 设置属性值
+
+```javascript
+let obj = {
+        name:"lisi",
+        age:20
+    }
+
+let worker = "程序员"
+
+Object.defineProperty(obj,"address",{
+    value:"beijing",
+    enumerable:true,
+    writable:true,
+    configurable:true
+})
+Object.defineProperty(obj,"job",{
+    get(){
+        return worker
+    },
+    set(value){
+        worker = value;
+    }
+})
+obj.address = "tianjin"
+console.log(obj)
+console.log(obj.job)
+obj.job = "UI"
+console.log(obj.job)
+```
+
+## Vue插件
+
+作用：增强Vue功能
+
+本质：一个包含install方法的对象
+
+```javascript
+export default {
+    install(Vue){
+        var instance = axios.create({
+             baseURL: 'http://localhost:8888/api/private/v1/',
+             headers: {'Authorization': window.localStorage.getItem('token')}
+        });
+        Vue.prototype.$axios = instance;
+    }
+}
+```
+
+使用插件
+```javascript
+Vue.use(axios)
+```
+
+## mixin混入
+
+作用：复用Vue组件中的功能，公共执行代码块
+
+### 定义mixin
+
+```javascript
+export default {
+    data(){
+        return {
+            x:200,
+            y:300
+        }
+    },
+    methods:{
+        add(){
+            console.log("Add函数触发")
+        }
+    }
+}
+
+```
+
+### 局部混入
+```javascript
+    import mixin from '../mixin'
+    export default {
+        mixins:[mixin],
+        mounted(){
+            this.add()
+        }
+    }
+```
+
+### 全局混入
+
+```javascript
+Vue.mixin({
+       data(){
+           return {
+               x:200,
+               y:300
+           }
+       },
+       methods:{
+           add(){
+               console.log("Add函数触发")
+           }
+       }
+})
+```

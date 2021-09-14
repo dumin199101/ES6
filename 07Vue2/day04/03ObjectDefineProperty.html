@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    let obj = {
+        name:"lisi",
+        age:20
+    }
+
+    let worker = "程序员"
+
+    Object.defineProperty(obj,"address",{
+        value:"beijing",
+        enumerable:true,
+        writable:true,
+        configurable:true
+    })
+    Object.defineProperty(obj,"job",{
+        get(){
+            return worker
+        },
+        set(value){
+            worker = value;
+        }
+    })
+    obj.address = "tianjin"
+    console.log(obj)
+    console.log(obj.job)
+    obj.job = "UI"
+    console.log(obj.job)
+</script>
+</body>
+</html>

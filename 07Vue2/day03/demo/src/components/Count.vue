@@ -8,6 +8,7 @@
 
 <script>
     import bus from './eventBus'
+    import pubsub from 'pubsub-js'
     export default {
         props:["init"],
         data(){
@@ -23,6 +24,9 @@
         created(){
             bus.$on('sendMsg',(msg)=>{
                 console.log("接收来自兄弟组件的数据："+msg);
+            }),
+            pubsub.subscribe('hi',(eventName,msg)=>{
+                console.log(eventName,msg)
             })
         },
         mounted(){

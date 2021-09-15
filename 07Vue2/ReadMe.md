@@ -669,6 +669,18 @@ created(){
 }
 ```
 
+使用pubsub-js
+
+```javascript
+pubsub.publish('hi','Hello Vue!!!')
+```
+
+```javascript
+pubsub.subscribe('hi',(eventName,msg)=>{
+    console.log(eventName,msg)
+})
+```
+
 4.父组件与孙组件传递数据
 
 使用provide-inject机制
@@ -1481,3 +1493,62 @@ Vue.mixin({
        }
 })
 ```
+
+## 过渡及动画
+
+
+### 过渡
+
+v-enter,v-enter-active,v-enter-to
+
+v-leave,v-leave-active,v-leave-to
+
+
+### 动画
+
+动画中已经封装了过渡效果，只使用active属性即可,配合animate.css
+
+enter-active-class,leave-active-class
+
+```html
+<div id="app">
+    <button @click="change">显示/隐藏</button>
+    <transition name="custom-classes-transition" appear enter-active-class="animated fadeInRight" leave-active-class="animated fadeOut">
+        <div v-show="isShow" id="box"></div>
+    </transition>
+</div>
+```
+
+其它属性：
+
+  appear：当页面渲染成功就执行动画
+
+  name：为过渡效果命名，默认为v-enter-active
+
+
+## 前端跨域代理
+
+原因：前端请求遵循同源策略，存在跨域问题，后端请求使用TCP协议，不存在跨域问题，所以引入代理，解决跨域问题。
+
+解决跨域方法：
+   1. cors
+   2. jsonp <script>标签的src属性，不用遵循同源策略
+   3. proxy
+
+```javascript
+//vue-cli3.0 里面的 vue.config.js做配置
+devServer: {
+    proxy: {
+        '/rng': {     //这里最好有一个 /
+            target: 'http://45.105.124.130:8081',  // 后台接口域名
+            ws: true,        //如果要代理 websockets，配置这个参数
+            secure: false,  // 如果是https接口，需要配置这个参数
+            changeOrigin: true,  //是否跨域
+            pathRewrite:{
+                '^/rng':''
+            }
+        }
+    }
+  }
+```
+

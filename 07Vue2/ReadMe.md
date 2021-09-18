@@ -649,10 +649,22 @@ export default {
 
 3.兄弟组件传递数据
 使用eventBus
+
+方式1：
 ```javascript
 import Vue from 'vue';
 export default new Vue()
 ```
+
+方式2：
+```javascript
+new Vue({
+  beforeCreate(){
+      Vue.prototype.$bus = this
+  }
+})
+```
+
 
 组件1：使用$emit()触发事件，发送数据
 ```javascript
@@ -1080,6 +1092,26 @@ const router = new VueRouter({
 })
 ```
 
+2-1. 命名路由
+
+```html
+<template>
+  <router-link :to="{name:'about',params:{age:20}}">关于</router-link>
+</template>
+```
+
+```javascript
+const router = new VueRouter({
+    routes:[
+        {
+            name:"about",
+            path:"/about",
+            component:About
+        },
+    ]
+})
+```
+
 3. 动态路由匹配
 
 ```javascript
@@ -1116,9 +1148,13 @@ $router:路由导航对象
   back() 后退
 
 
-5. 导航守卫
+5. 路由守卫
 
-导航守卫可以控制路由的访问权限
+路由守卫可以控制路由的访问权限
+
+5.1 全局路由守卫
+
+5.1.1 全局前置路由守卫
 
 ```javascript
 router.beforeEach((to,from,next)=>{
@@ -1132,6 +1168,53 @@ router.beforeEach((to,from,next)=>{
     }else{
         next()
     }
+})
+```
+
+5.1.2 全局后置路由守卫
+
+```javascript
+router.afterEach((to,from)=>{
+    console.log("导航切换完成，触发后置路由守卫")
+})
+```
+
+5.1.3 路由meta属性
+
+存取路由元信息（用户自定义属性）
+
+```javascript
+const router = new VueRouter({
+    routes:[
+        {
+            name:"about",
+            path:"/about",
+            component:About,
+            meta:{
+              isAuth:true
+            }
+        },
+    ]
+})
+```
+
+5.2 独享路由守卫
+
+```javascript
+const router = new VueRouter({
+    routes:[
+        {
+            name:"about",
+            path:"/about",
+            component:About,
+            meta:{
+              isAuth:true
+            },
+            beforeEnter(to,from,next){
+
+            }
+        },
+    ]
 })
 ```
 
@@ -1336,14 +1419,14 @@ Action 用于处理异步任务。
 ①. 定义Action
 ```javascript
 actions: {
-    addAsync(store) {
+    addAsync(context) {
         setTimeout(function () {
-            store.commit("add")
+            context.commit("add")
         }, 1000)
     },
-    subAsync(store, step) {
+    subAsync(context, step) {
         setTimeout(function () {
-            store.commit("sub", step)
+            context.commit("sub", step)
         }, 1000)
     }
 },
@@ -1375,6 +1458,144 @@ Module是模块的意思，为什么会在Vuex中使用模块呢？
     1. Vues使用单一状态树，意味着很多状态都会交给Vuex来管理
     2. 当应用变的非常复杂时，Store对象就可能变的相当臃肿
     3. 为解决这个问题，Vuex允许我们将store分割成模块(Module)，并且每个模块拥有自己的State、Mutation、Actions、Getters等
+
+```javascript
+import axios from 'axios'
+import {SET_STUDENT, DELETE_STUDENT} from "./mutation-types"
+
+export default {
+    namespaced:true,
+    state: {
+        students: []
+    },
+    getters: {
+        students(state) {
+            state.students.map(item => {
+                return item.total = item.salary * item.num
+            })
+            return state.students
+        },
+        totalSalary(state) {
+            return state.students.reduce((sum, item) => {
+                return sum += item.salary * item.num
+            }, 0)
+        }
+    },
+    mutations: {
+        [SET_STUDENT](state, data) {
+            state.students = data
+        },
+        [DELETE_STUDENT](state, id) {
+            state.students.splice(state.students.findIndex(item => item.id == id), 1)
+        }
+    },
+    actions: {
+        async getStudent(context) {
+            const {data} = await axios.get('./studentList.json')
+            context.commit('SET_STUDENT', data)
+        }
+    }
+}
+```
+
+方式一：
+
+```javascript
+import axios from 'axios'
+    export default {
+        computed:{
+           tableData(){
+               return this.$store.getters['stuMod/students']
+           },
+           totalSalary(){
+               return this.$store.getters['stuMod/totalSalary']
+           }
+        },
+        methods: {
+            handleClick(row) {
+                this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+
+                    this.$store.commit('stuMod/DELETE_STUDENT',row.id)
+
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功!'
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },
+            handleChange(value){
+                console.log(value)
+            }
+        },
+        created(){
+            this.$store.dispatch('stuMod/getStudent')
+        }
+    }
+```
+
+方式二：
+
+```javascript
+import axios from 'axios'
+    import {mapActions,mapMutations,mapGetters} from 'vuex'
+    export default {
+        computed: {
+            ...mapGetters('stuMod',["students","totalSalary"]),
+        },
+        methods: {
+            ...mapActions('stuMod',["getStudent"]),
+            ...mapMutations('stuMod',["DELETE_STUDENT"]),
+            handleClick(row) {
+                this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    this.DELETE_STUDENT(row.id)
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功!'
+                    });
+                }).catch((err) => {
+                    console.log(err.message)
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
+                });
+            },
+            handleChange(value) {
+                console.log(value)
+            }
+        },
+        created() {
+            this.getStudent()
+        }
+    }
+```
+
+利用插槽传递数据
+
+```html
+<el-table-column
+        prop="num"
+        label="数量"
+        width="250">
+    <template slot-scope="scope">
+        <el-input-number v-model="scope.row.num" @change="handleChange" :min="1" :max="12"
+                         label="应发放工资月数"></el-input-number>
+    </template>
+</el-table-column>
+```
 
 # day10
 

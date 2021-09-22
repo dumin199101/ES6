@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+   <button id="btn">点击我</button>
+</body>
+<script>
+    class Person{
+        constructor(name,age){
+            this.name = name
+            this.age = age
+        }
+        say(){
+            return this.name+","+this.age
+        }
+    }
+    var _that
+    class Student extends Person{
+        constructor(name,age,addr){
+            super(name,age);
+            _that = this
+            this.addr = addr
+            this.btn = document.getElementById("btn")
+            this.btn.onclick = function(){
+                //此处的this已经不是学生的实例,要么使用箭头函数，要么使用_that全局变量接收原来的this
+                console.log(this)
+                console.log(_that)
+            }
+        }
+
+        sayInfo(){
+            let info = super.say()
+            return info+",addr:"+this.addr
+        }
+    }
+    var stu = new Student("lisi",22,"beijing")
+    console.log(stu.sayInfo())
+</script>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+     *  1.作用域：
+     *     全局作用域：
+     *        全局作用域声明的变量在全局范围内有效
+     *     局部作用域:
+     *        局部作用域中，用var声明的变量会变量提升
+     *        局部作用域中，先在局部作用域查找变量，局部没有再去全局作用域查找
+     *        局部作用域中，未使用var声明的变量是全局变量
+     *     函数的声明也会提升，函数声明会在调用之前执行
+     *
+     */
+    console.log("**************1.作用域*********************")
+
+
+    var a = 10
+
+    function print() {
+        console.log(a)
+        var a = 20
+    }
+
+    print()  // 输出undefined
+
+    function print1() {
+        var a = 200
+        console.log(a)
+    }
+
+    print1()  //输出200
+
+    print2() // 输出10
+    function print2() {
+        console.log(a)
+        a = 30
+    }
+
+    console.log(a)  //输出30
+
+    /**
+     *  2.原型链
+     *
+     *    原型对象:
+     *
+     *                prototype属性         原型对象
+     *        Person<-----------------> Person.prototype
+     *                constoructor属性      __proto__属性指向Object类的原型对象
+     *           |                               |
+     *           |                               |
+     *           | 构造函数                       |
+     *           |                               |
+     *           |                          Object.prototype
+     *           |                             __proto__属性指向null
+     *        person
+     *       person.__proto__属性指向原型对象
+     *
+     *
+     *
+     *
+     *
+     *
+     */
+    console.log("**************2.原型链*********************")
+
+    function Person(name, age) {
+        this.name = name
+        this.age = age
+    }
+
+    var person = new Person("wang", 20)
+    console.log(person.__proto__)
+    console.log(person.__proto__.__proto__)
+    console.log(person.__proto__.__proto__.__proto__)
+    console.log(Person.hasOwnProperty("name"))
+    Person.prototype.addr = "beijing"
+    console.log(Person.hasOwnProperty("addr"))  //不会检测原型链上的属性
+    console.log(Person.prototype.hasOwnProperty("addr"))
+    //获取原型对象
+    console.log(Object.getPrototypeOf(person) === Person.prototype)
+    console.log(Person.prototype.constructor === Person)
+    console.log(person.__proto__ === Person.prototype)
+
+    /**
+     *  3.call()跟apply()
+     *    函数特有方法，用来改变函数内部this的指向
+     *
+     *
+     */
+
+    console.log("**************3.call()跟apply()*********************")
+
+    function add(a,b){
+        return a + b
+    }
+
+    function sub(a,b){
+        console.log(this)
+        return a - b
+    }
+
+    var res1 = sub(6,4)  //此处this指向window
+    console.log(res1)
+
+    var res = sub.call(add,10,5) //此处this指向add
+    console.log(res)
+
+    var res2 = sub.apply(add,[8,2])
+    console.log(res2)
+
+    var obj = {
+        name:"lucy",
+        age:22,
+        say(){
+            console.log(this.name+","+this.age)
+        }
+    }
+
+    var obj2 = {
+        name:"Amy",
+        age:19
+    }
+
+    obj.say.call(obj2)
+
+
+
+
+
+    /**
+     *  4.callee跟caller()
+     *    callee:返回的是当前函数的引用
+     *    caller():返回的是当前函数调用者的引用
+     *
+     *
+     *
+     */
+    console.log("**************4.callee跟caller()*********************")
+
+    function sayHello(){
+        console.log(sayHello.caller)
+    }
+
+    function sayGoodBye(){
+        sayHello()
+    }
+
+    sayGoodBye()
+
+
+    /**
+     *  5.arguments对象
+     *    获取函数实参列表
+     *
+     *
+     *
+     */
+    console.log("**************5.arguments*********************")
+
+    function sayMessage(str1, str2, str3) {
+        let length = arguments.length
+        console.log("实参个数：" + length)
+        for(let index in arguments){
+           console.log(arguments[index])
+        }
+        console.log(arguments.callee)
+    }
+
+    sayMessage("Hello", "msg", "Good")
+
+    /**
+     *  6.toString()
+     *
+     *
+     *
+     */
+    console.log("**************6.toString()*********************")
+
+    function Student(name,age){
+        this.name = name
+        this.age = age
+    }
+
+    Student.prototype.toString = function(){
+        return "Name["+this.name+"],Age["+this.age+"]"
+    }
+
+    var s = new Student("wang",18)
+    console.log(s)  //只有IE浏览器自动调用toString()
+
+
+
+
+
+
+</script>
+</body>
+</html>

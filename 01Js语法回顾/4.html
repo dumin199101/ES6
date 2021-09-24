@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // 利用call实现继承
+    function Person(name,age){
+        this.name = name
+        this.age = age
+    }
+
+    Person.prototype.say = function(){
+        console.log("Info:"+this.name+","+this.age+","+this.addr)
+    }
+
+    function Student(name,age,addr){
+        Person.call(this,name,age)
+        this.addr = addr
+    }
+    //关键点：子类的原型对象指向父类的实例对象，父类的实例对象通过__proto__属性指向父类的原型对象
+    Student.prototype = new Person()
+    var s = new Student("张三",22,"陕西省")
+    s.say()
+
+</script>
+</body>
+</html>

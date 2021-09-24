@@ -47,7 +47,7 @@
     /**
      *  2.原型链
      *
-     *    原型对象:
+     *    原型对象: 实例共享方法，节约内存空间
      *
      *                prototype属性         原型对象
      *        Person<-----------------> Person.prototype
@@ -88,8 +88,9 @@
     console.log(person.__proto__ === Person.prototype)
 
     /**
-     *  3.call()跟apply()
+     *  3.call()跟apply()跟bind()
      *    函数特有方法，用来改变函数内部this的指向
+     *    bind()方法需要手动调用
      *
      *
      */
@@ -128,6 +129,7 @@
     }
 
     obj.say.call(obj2)
+    obj.say.bind(obj2)()
 
 
 
@@ -193,6 +195,7 @@
 
     var s = new Student("wang",18)
     console.log(s)  //只有IE浏览器自动调用toString()
+    console.log(Object.keys(s)) //获取实例的属性
 
 
 

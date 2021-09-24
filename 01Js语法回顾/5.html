@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    console.log("*****************浅拷贝*****************")
+    //浅拷贝：对于引用数据类型（数组，函数，对象）会相互影响
+    var obj1 = {
+        name:"lisi",
+        age:22,
+        baseinfo:{
+            addr:"天津",
+            tele:"11028765"
+        },
+        hobby:["篮球","排球"]
+    }
+    var obj2 = {}
+    Object.assign(obj2,obj1)
+    console.log(obj2)
+    obj2.name = "wangwu"
+    obj2.baseinfo.addr = "北京"
+    obj2.hobby[1] = "羽毛球"
+    console.log(obj2)
+    console.log(obj1)
+    console.log("*****************深拷贝*****************")
+    //深拷贝：对于引用数据类型（数组，函数，对象）不会相互影响
+    var obj3 = {
+        name:"lisi",
+        age:22,
+        baseinfo:{
+            addr:"天津",
+            tele:"11028765"
+        },
+        hobby:["篮球","排球"]
+    }
+    var obj4 = {}
+
+    function deepcopy(newobj,oldobj){
+        for(var k in oldobj){
+            if(oldobj[k] instanceof Array){
+                newobj[k] = []
+                deepcopy(newobj[k],oldobj[k])
+            }else if(oldobj[k] instanceof Object){
+                newobj[k] = {}
+                deepcopy(newobj[k],oldobj[k])
+            }else{
+                newobj[k] = oldobj[k]
+            }
+        }
+    }
+
+    deepcopy(obj4,obj3)
+
+    console.log(obj4)
+
+    obj4.name = "wangwu"
+
+    obj4.baseinfo.addr = "上海"
+
+    obj4.hobby[0] = "足球"
+
+    console.log(obj4)
+
+    console.log(obj3)
+
+
+
+</script>
+</body>
+</html>

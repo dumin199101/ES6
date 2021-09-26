@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    // 1.数组解构赋值
+    const arr = [1, 2, 3]
+    let [a, b, c] = arr
+    console.log(a)
+    console.log(b)
+    console.log(c)
+
+    // 2.对象解构赋值
+    const obj = {name: "lisi", age: 22}
+    let {name: myName, age: myAge} = obj
+    console.log(myName)
+    console.log(myAge)
+
+    // 3.箭头函数中的this指向函数定义位置的上下文this
+    function say() {
+        console.log(this)
+        let sum = () => {
+            console.log(this)
+        }
+        sum()
+    }
+    say.call(obj)
+
+    // 4.扩展运算符：将数组分割为逗号分隔的参数序列
+    console.log(...arr)
+
+    function write(a,...arr){
+        console.log(arr)
+    }
+
+    write(1,2,3,4)
+
+    // 5.Set数据结构
+    let s = new Set([11,22,33])
+    console.log(s)
+    s.add(33)
+    s.add(55)
+    console.log(s)
+    console.log(...s)
+    s.forEach(item=>{
+        console.log(item)
+    })
+
+
+
+
+</script>
+</body>
+</html>

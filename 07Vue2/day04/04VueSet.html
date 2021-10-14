@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.13/vue.common.dev.js"></script>
+</head>
+<body>
+<div id="app">
+    <h3>我的爱好</h3>
+    <h4 v-for="hobby in hobbys">{{hobby}}</h4>
+    <h5>{{student.name}}--{{student.age}}--{{student.school}}</h5>
+    <button @click="addSex">添加性别属性，默认值：男</button> <br/>
+    <h3 v-if="student.sex">性别：{{student.sex}}</h3>
+</div>
+</body>
+<script>
+    /*
+     * Vue监视数据的原理：
+     *   1.Vue会监视data中所有层次的数据
+     *   2.监测对象中的数据
+     *      通过setter实现监视，且要在new Vue时就传入要监测的数据
+     *      ①对象中后追加的属性，Vue默认不做响应式处理
+     *      ②如果需要给后添加的属性做响应式，请使用如下API
+     *           Vue.set(obj,key,value)
+     *           vm.$set(obj,key,value)
+     *   3.监测数组中的数据
+     *       通过包裹数组更新元素的方法实现，本质做了两件事
+     *       ①调用原生方法对数组进行更新
+     *       ②更新解析模板，渲染页面
+     *   4.Vue中修改数组元素的方法：
+     *       ①使用API：push,pop,shift,unshift,reverse,sort,splice
+     *       ②Vue.set()或者vm.$set()
+     *   注意：Vue.set()或者vm.$set()不能给vm或者vm的根数据对象添加属性
+     *
+     */
+
+    const vm = new Vue({
+        el:'#app',
+        data: {
+            hobbys:["篮球","足球","乒乓球"],
+            student:{
+                name:"张三",
+                age:22
+            }
+        },
+        mounted(){
+            //添加更新到视图
+            this.$set(this.hobbys,3,"羽毛球")
+            this.$set(this.student,"school","清华大学")
+        },
+        methods:{
+            addSex(){
+                this.$set(this.student,'sex','男')
+//                this.student.sex = '男'  //无效
+            },
+        }
+    })
+    //添加
+//    vm.$data.hobbys[3] = "羽毛球"  /*无效*/
+    vm.$data.hobbys.push("网球") /*有效*/
+    //修改
+    vm.$data.hobbys[1] = "水球" /*已有属性修改，响应式*/
+    console.log(vm._data.hobbys)
+    console.log(vm.$data.hobbys)
+    console.log(vm.hobbys)
+    console.log(vm.student)
+
+
+
+</script>
+</html>

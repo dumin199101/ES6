@@ -21,6 +21,8 @@
         <h4>汽车价格：{{car.price}}</h4>
         <Son></Son>
     </div>
+    <hr>
+    <CustomRef></CustomRef>
 
 
 </template>
@@ -32,10 +34,11 @@
     import Demo from './components/Demo.vue'
     import GetPosition from './components/GetPosition.vue'
     import Son from './components/Son.vue'
+    import CustomRef from './components/CustomRef.vue'
 
     export default {
         name: 'App',
-        components: {HelloWorld,Demo,GetPosition,Son},
+        components: {HelloWorld,Demo,GetPosition,Son,CustomRef},
         beforeCreate() {
             console.log("beforeCreate事件执行")
         },

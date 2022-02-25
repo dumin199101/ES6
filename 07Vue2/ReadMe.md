@@ -1773,3 +1773,50 @@ devServer: {
   }
 ```
 
+## Uni-app
+
+rpx：适配不同宽度的屏幕，1rpx = 0.5px,750rpx = 屏幕宽度，100vw = 屏幕宽度，100vh = 屏幕高度
+
+## 三点运算符
+
+1. 数组的复制
+
+```javascript
+var number = ['吃饭','玩游戏','聊天','看电影']
+console.log(...number) // '吃饭','玩游戏','聊天','看电影'
+console.log([...number])
+```
+
+2. 数组的合并
+```javascript
+var arr1 = ['上天','入地','游泳']
+var arr2 = ['潜水','睡觉','吃饭']
+console.log([...arr1,...arr2])
+```
+
+3. 对象的复制
+```javascript
+var obj1 = {name:"明明",age:20}
+var obj2 = {...obj1}
+console.log(obj2)
+```
+
+4. 对象的合并
+```javascript
+var obj1 = {name:"明明",age:20}
+var obj2 = {addr:"乌克兰"}
+var obj3 = {...obj1,...obj2}
+console.log(obj3)
+```
+
+5. 字符串转数组
+```javascript
+var str = "吃好，和好，完好"
+console.log([...str])
+```
+
+6. 解构赋值
+```javascript
+[a,b,...rest] = [1,2,3,4,5,6]
+console.log(rest)
+```

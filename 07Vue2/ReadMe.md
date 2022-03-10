@@ -1776,6 +1776,13 @@ devServer: {
 ## Uni-app
 
 rpx：适配不同宽度的屏幕，1rpx = 0.5px,750rpx = 屏幕宽度，100vw = 屏幕宽度，100vh = 屏幕高度
+rem: 相对于根元素的字体大小的单位,rem是相对于根元素<html>，这样就意味着，我们只需要在根元素确定一个px字号，则可以来算出元素的宽高。
+```css
+html{font-size: 10px}
+p {width: 5rem;height: 2rem}
+```
+
+
 
 ## 三点运算符
 

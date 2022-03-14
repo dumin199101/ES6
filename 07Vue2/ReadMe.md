@@ -58,6 +58,9 @@ module.exports = {
 实时打包构建生成的文件存储在内存中
 
 2. html-webpack-plugin
+作用：
+   1.复制src目录下的index.html,放到内存中
+   2.自动注入打包的bundle.js文件 
 下载：
 npm install html-webpack-plugin@5.3.2 -D
 配置：
@@ -170,12 +173,14 @@ import logo from './images/logo.png'
 }
 
 ## 配置SourceMap
+开发环境下，默认生成的SourceMap，记录的是生成后的代码位置，会导致运行时报错行数跟源代码行数不一致。
 开发环境下，推荐在webpack.config.js中添加如下配置，保证运行时报错的行数跟源文件保持一致。
+生产模式下建议关闭此选项，保证安全性。
 module.exports = {
     "devtool":"eval-source-map"
 }
 设置值：
-   nosource-source-map:能看到行号，看不到源代码（生产环境）
+   nosources-source-map:能看到行号，看不到源代码（生产环境）
    eval-source-map:能看到行号跟源代码（开发环境）
 
 ## @标识符

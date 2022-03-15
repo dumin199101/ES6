@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>类组件</title>
+    <script src="js/react.development.js"></script>
+    <script src="js/react-dom.development.js"></script>
+    <!-- 引入babel,将jsx转为js   -->
+    <script src="js/babel.min.js"></script>
+</head>
+<body>
+<div id="test"></div>
+<button id="weather">点击我触发</button>
+<button id="weather2">点击我触发</button>
+</body>
+<script type="text/babel">
+    class MyComponent extends React.Component {
+        constructor(props) {
+            super(props);
+            // 通过bind改变函数内部this指向，将原型上的changeState2赋值给类实例对象上的changeState2
+            this.changeState2 = this.changeState2.bind(this)
+            this.state = {
+                "isHot": true,
+                "isSleep": true,
+            }
+        }
+
+        render() {
+            // console.log(this)
+            // 解构赋值
+            const {isHot,isSleep} = this.state
+            return (
+                <div>
+                    <h1>我是一个类组件</h1>
+                    <h2 onClick={this.changeState}>今天天气很{isHot ? '炎热' : '凉爽'}</h2>
+                    <h3 onClick={this.changeState2}>今天我要{isSleep ? '休息' : '学习'}</h3>
+                </div>
+            )
+        }
+
+        changeState2(){
+           // changeState2是onClick的回调，未通过实例调用，又因为类中的方法开启了严格模式，故this指向undefined
+           console.log(this)
+           this.setState({
+               isSleep: !this.state.isSleep
+           })
+        }
+
+        changeState = () => {
+            // 箭头函数中的this指向的是上下文中的this，而不是执行时的this。
+            this.setState({
+                isHot: !this.state.isHot
+            });
+        }
+    }
+
+    // 点击事件
+    const b = document.getElementById('weather')
+    b.onclick = () => {
+        console.log("weather")
+    }
+    const b2 = document.getElementById('weather2')
+    b2.addEventListener('click', () => {
+        console.log("weather2")
+    })
+    ReactDOM.render(<MyComponent/>, document.getElementById("test"))
+</script>
+</html>

@@ -95,7 +95,7 @@
      *
      */
 
-    console.log("**************3.call()跟apply()*********************")
+    console.log("**************3.call()跟apply()跟bind()*********************")
 
     function add(a,b){
         return a + b
@@ -129,6 +129,7 @@
     }
 
     obj.say.call(obj2)
+    // call和apply都是对函数的直接调用，而bind方法返回的仍然是一个函数，因此后面还需要()来进行调用才可以。
     obj.say.bind(obj2)()
 
 

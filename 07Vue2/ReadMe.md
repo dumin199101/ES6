@@ -1832,3 +1832,14 @@ console.log([...str])
 [a,b,...rest] = [1,2,3,4,5,6]
 console.log(rest)
 ```
+
+7. 函数形参
+```javascript
+function add(...args){
+   return args.reduce((previousValue,currentValue)=>{
+       return previousValue + currentValue
+   },0)
+}
+let res = add(1,2,3)
+console.log(res);
+```

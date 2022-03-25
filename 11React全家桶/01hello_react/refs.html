@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Refs</title>
+    <script src="js/react.development.js"></script>
+    <script src="js/react-dom.development.js"></script>
+    <!-- 引入babel,将jsx转为js   -->
+    <script src="js/babel.min.js"></script>
+</head>
+<body>
+
+<div id="test1"></div>
+<div id="test2"></div>
+<div id="test3"></div>
+
+<script type="text/babel">
+    class Demo extends React.Component{
+        showData = ()=>{
+            const {input1} = this.refs
+            console.log(input1.value)
+        }
+        render() {
+          return (
+              <div>
+                  <input type="text" ref="input1" placeholder="请输入信息"/>
+                  <button onClick={this.showData}>点击获取输入框输入信息</button>
+              </div>
+          )
+        }
+    }
+    ReactDOM.render(<Demo/>,document.getElementById('test1'))
+
+    class Demo2 extends React.Component{
+        showData2 = ()=>{
+            const {input2} = this
+            console.log(input2.value)
+        }
+        render() {
+            return (
+                <div>
+                    <input type="text" ref={c=>{this.input2 = c}} placeholder="请输入信息"/>
+                    <button onClick={this.showData2}>点击获取输入框输入信息</button>
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(<Demo2/>,document.getElementById('test2'))
+
+    class Demo3 extends React.Component{
+        input3 = React.createRef()
+        showData3 = ()=>{
+            const {input3} = this
+            console.log(input3.current.value)
+        }
+        showData4 = (event)=>{
+            console.log(event.target.value);
+        }
+        render() {
+            return (
+                <div>
+                    <input type="text" ref={this.input3} placeholder="请输入信息"/>
+                    <button onClick={this.showData3}>点击获取输入框输入信息</button>
+                    <input onBlur={this.showData4} type="text" placeholder="请输入信息" />
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(<Demo3/>,document.getElementById('test3'))
+
+</script>
+</body>
+</html>

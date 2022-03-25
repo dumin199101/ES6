@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>生命周期钩子</title>
+    <script src="js/react.development.js"></script>
+    <script src="js/react-dom.development.js"></script>
+    <!-- 引入babel,将jsx转为js   -->
+    <script src="js/babel.min.js"></script>
+</head>
+<body>
+<div id="demo"></div>
+<script type="text/babel">
+    class Lifestyle extends React.Component{
+
+        constructor(props) {
+            console.log("constructor")
+            super(props);
+            this.state = {
+                count: 0
+            }
+        }
+
+        componentWillMount() {
+            console.log("组件即将挂载")
+        }
+        componentDidMount() {
+            console.log("组件挂载完毕")
+        }
+
+        componentWillUpdate(nextProps, nextState, nextContext) {
+            console.log("组件即将更新")
+        }
+
+        componentDidUpdate(prevProps, prevState, snapshot) {
+            console.log("组件更新完毕")
+        }
+
+        shouldComponentUpdate(nextProps, nextState, nextContext) {
+            console.log("更新开关触发")
+            return true
+        }
+
+        componentWillUnmount() {
+            console.log("组件即将卸载")
+        }
+
+        add = ()=>{
+            this.setState({count:this.state.count+1})
+        }
+
+        death = ()=>{
+            ReactDOM.unmountComponentAtNode(document.getElementById('demo'))
+        }
+
+        render() {
+            return (
+                <div>
+                    <div>当前计数器的值:{this.state.count}</div>
+                    <button onClick={this.add}>点击计数器加一</button>
+                    <button onClick={this.death}>卸载组件</button>
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(<Lifestyle/>,document.getElementById('demo'))
+</script>
+</body>
+</html>

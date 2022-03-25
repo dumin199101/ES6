@@ -32,7 +32,40 @@ b. 为事件处理函数绑定实例
      
      b.使用箭头函数
    
-### props
+### Props
 
-1. 通过标签属性，从标签外向标签内传递数据
+1. 通过标签属性，从组件外向组件内传递数据
 2. 组件内部不能修改props传递的数据（只读）
+
+### Refs
+
+组件内的标签可以用ref属性来标识自己，但不要过渡使用，当事件源绑定在自己身上时，可以省略
+
+1. 字符串形式的Ref
+2. 回调函数形式的Ref
+3. createRef创建的Ref
+
+## 收集表单数据
+
+1.受控组件
+
+   在一个受控组件中，表单数据是由 React组件来管理的。类似vue中的双向数据绑定
+
+2.非受控组件
+
+   在一个非受控组件中，表单数据将交由 DOM 节点来处理，通过Ref属性，现用现取  
+
+## 组件生命周期
+
+componentWillMount:render渲染之前触发
+
+componentDidMount:render渲染之后触发
+
+componentWillUnmount:销毁之前触发
+
+shouldComponentUpdate:更新开关布尔值,触发:setState()
+
+componentWillUpdate:render渲染之前触发:forceUpdate()
+
+componentDidUpdate:render渲染之后触发
+

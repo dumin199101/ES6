@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import Header from "./components/Header";
 import List from "./components/List";
 import Footer from "./components/Footer";
+import axios from "axios";
+import PubSub from "pubsub-js"
 
 export default class App extends Component {
     state = {
@@ -13,15 +15,26 @@ export default class App extends Component {
         ]
     }
 
-    addTodo = (newObj)=>{
+    componentDidMount = async ()=> {
+        PubSub.publish("101", "Hello,World")
+        try{
+            const response = await fetch("http://localhost:3000/api2/cars")
+            const data = await response.json()
+            console.log(data)
+        }catch (error) {
+            console.log(error)
+        }
+    }
+
+    addTodo = (newObj) => {
         const {todos} = this.state
-        const newTodos = [newObj,...todos]
-        this.setState({todos:newTodos})
+        const newTodos = [newObj, ...todos]
+        this.setState({todos: newTodos})
     }
 
     updateTodo = (id, checked) => {
         const newtodos = this.state.todos.map((item) => {
-            return item.id === id ? {...item,done:checked} : item
+            return item.id === id ? {...item, done: checked} : item
         })
         this.setState({
             todos: newtodos
@@ -30,17 +43,17 @@ export default class App extends Component {
 
     deleteTodo = (id) => {
         const {todos} = this.state
-        const newtodos = todos.filter((item)=>{
-              return item.id !== id
+        const newtodos = todos.filter((item) => {
+            return item.id !== id
         })
         this.setState({
             todos: newtodos
         })
     }
 
-    clearAllDoneTodo = ()=> {
+    clearAllDoneTodo = () => {
         const {todos} = this.state
-        const newtodos = todos.filter((item)=>{
+        const newtodos = todos.filter((item) => {
             return !item.done
         })
         this.setState({
@@ -51,16 +64,36 @@ export default class App extends Component {
     checkAllTodo = (checked) => {
         const {todos} = this.state
 
-        const newtodos  = todos.map((item)=>{
-                return {...item,done:checked}
-            })
+        const newtodos = todos.map((item) => {
+            return {...item, done: checked}
+        })
 
         this.setState({
             todos: newtodos
         })
     }
 
-    render() {
+     render() {
+        axios.get("http://localhost:3000/api1/students").then((resp) => {
+            console.log(resp.data)
+        }, (error) => {
+            console.log(error);
+        })
+
+        axios.get("http://localhost:3000/api2/cars").then((resp) => {
+            console.log(resp.data)
+        }, (error) => {
+            console.log(error);
+        })
+
+        fetch("http://localhost:3000/api1/students").then(response => {
+            return response.json()
+        }).then(data => {
+            console.log(data)
+        }).catch(error => {
+            console.log(error)
+        })
+
         const {todos} = this.state
         return (
             <div className="todo-container">

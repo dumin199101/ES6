@@ -114,3 +114,125 @@ getSnapshotBeforeUpdate:在最近一次渲染输出（提交到 DOM 节点）之
                        2.如果确定只是简单的展示数据，用index也是可以的。
 
 ## 组件通讯
+
+父组件-子组件：props
+
+子组件-父组件：callback
+
+兄弟组件：pubsub.js
+
+
+### 使用PubSubJs组件通讯
+
+#### 下载
+
+```
+npm i pubsub-js --save
+```
+
+#### 使用：
+
+ 1.先引入：
+ ```javascript
+ import PubSub from "pubsub-js"
+```
+
+ 2.要接收数据方订阅：
+```javascript
+const token = PubSub.subscribe('消息名',(_,data)=>{ console.log(data) })
+``` 
+
+ 3.传递数据方发布：
+```javascript
+PubSub.publish('消息名',data)
+``` 
+ 4.取消订阅
+```javascript
+Pubsub.unsubscribe(token)
+```
+
+
+## react脚手架配置代理
+
+### 方法一
+
+> 在package.json中追加如下配置
+
+```json
+"proxy":"http://localhost:5000"
+```
+
+说明：
+
+1. 优点：配置简单，前端请求资源时可以不加任何前缀。
+2. 缺点：不能配置多个代理。
+3. 工作方式：上述方式配置代理，当请求了3000不存在的资源时，那么该请求会转发给5000 （优先匹配前端资源）
+
+
+
+### 方法二
+
+1. 第一步：创建代理配置文件
+
+   ```
+   在src下创建配置文件：src/setupProxy.js
+   ```
+
+2. 编写setupProxy.js配置具体代理规则：
+
+   ```js
+   const {createProxyMiddleware} = require('http-proxy-middleware')
+   
+   module.exports = function(app) {
+     app.use(
+       createProxyMiddleware('/api1', {  //api1是需要转发的请求(所有带有/api1前缀的请求都会转发给5000)
+         target: 'http://localhost:5000', //配置转发目标地址(能返回数据的服务器地址)
+         changeOrigin: true, //控制服务器接收到的请求头中host字段的值
+         /*
+         	changeOrigin设置为true时，服务器收到的请求头中的host为：localhost:5000
+         	changeOrigin设置为false时，服务器收到的请求头中的host为：localhost:3000
+         	changeOrigin默认值为false，但我们一般将changeOrigin值设为true
+         */
+         pathRewrite: {'^/api1': ''} //去除请求前缀，保证交给后台服务器的是正常请求地址(必须配置)
+       }),
+       createProxyMiddleware('/api2', { 
+         target: 'http://localhost:5001',
+         changeOrigin: true,
+         pathRewrite: {'^/api2': ''}
+       })
+     )
+   }
+   ```
+
+说明：
+
+1. 优点：可以配置多个代理，可以灵活的控制请求是否走代理。
+2. 缺点：配置繁琐，前端请求资源时必须加前缀。
+
+## 使用fetch发送请求
+
+### 原始版
+
+```javascript
+fetch("http://localhost:3000/api1/students").then(response => {
+            return response.json()
+        }).then(data => {
+            console.log(data)
+        }).catch(error => {
+            console.log(error)
+        })
+```
+
+### await/async改进版
+
+```javascript
+componentDidMount = async ()=> {
+        try{
+            const response = await fetch("http://localhost:3000/api2/cars")
+            const data = await response.json()
+            console.log(data)
+        }catch (error) {
+            console.log(error)
+        }
+    }
+```

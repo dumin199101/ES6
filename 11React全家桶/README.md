@@ -236,3 +236,85 @@ componentDidMount = async ()=> {
         }
     }
 ```
+
+## 路由
+
+### react-router-dom
+
+#### 理解
+- 它是react的一个插件库
+- 专门用来实现一个SPA单页面应用
+- 基于react的项目基本都用它
+
+#### 常用API
+
+1. 内置组件
+
+- \<BrowserRouter>
+- \<HashRouter>
+- \<Route>
+- \<Link>
+- \<NavLink>
+- \<Redirect>
+- \<Switch>
+
+
+2. 知识点
+
+- 路由的基本使用
+
+![路由的基本使用](https://img-blog.csdnimg.cn/20210316191057901.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1JvbnljaGVu,size_16,color_FFFFFF,t_70)
+
+- 路由组件和一般组件
+
+![路由组件和一般组件](https://img-blog.csdnimg.cn/20210316191227475.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1JvbnljaGVu,size_16,color_FFFFFF,t_70)
+
+- NavLink的使用
+
+![NavLink的使用](https://img-blog.csdnimg.cn/20210316191343340.png)
+
+- Switch的使用
+
+![Switch的使用](https://img-blog.csdnimg.cn/20210316191436579.png)
+
+- 路由的模糊匹配跟精准匹配
+
+![路由的模糊匹配跟精准匹配](https://img-blog.csdnimg.cn/2021031619141345.png)
+
+- Redirect的使用
+
+![Redirect的使用](https://img-blog.csdnimg.cn/20210316191501373.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1JvbnljaGVu,size_16,color_FFFFFF,t_70)
+
+- 嵌套路由
+
+![嵌套路由](https://img-blog.csdnimg.cn/20210316191559335.png)
+
+- 向路由组件传递参数
+
+![向路由组件传递参数](https://img-blog.csdnimg.cn/20210316182102858.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1JvbnljaGVu,size_16,color_FFFFFF,t_70)
+
+- 路由跳转的两种模式（push、replace）
+
+> 默认开启的是push模式，push模式就是说每次的点击跳转改变路径，都是往浏览器历史记录的栈中不断追加一条记录，然后你点回退按钮时，它会指向当前栈顶记录的前一条，replcae模式就是说替换掉当前的那条记录，然后你点回退的时候，就不会显示上次被替换掉的那条记录了，只会显示上上条记录，那要怎么设置为replace模式呢？直接在<Link replace to='XXX'>标签上添加一个replace属性即可
+
+- 编程式路由导航
+
+> 就是借用history对象的api来操作路由的跳转、前进、后退
+
+![编程式路由导航](https://img-blog.csdnimg.cn/2021031618541845.png)
+
+- withRouter的使用
+
+> 作用：它就是专门解决在一般组件中想要使用路由组件的那几个API的这个问题的，它接收一个一般组件，然后调用后，该一般组件身上也有了路由组件的history、match等属性
+
+> 如何使用：
+>> 1、先引入import { withRouter} from "react-router-dom"
+
+>> 2、定义一般组件class XX extends ... 
+
+>> 3、export default withRouter( XX )
+
+- BrowserRouter和HashRouter的区别
+
+![BrowserRouter和HashRouter的区别](https://img-blog.csdnimg.cn/20210316190653395.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1JvbnljaGVu,size_16,color_FFFFFF,t_70)
+

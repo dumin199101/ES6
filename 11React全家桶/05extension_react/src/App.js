@@ -3,6 +3,7 @@ import Demo from './components/Demo'
 import Index from './components/Index'
 import Demo2 from './components/Demo2'
 import Context from './components/Context'
+import Parent from "./components/RenderProps/parent";
 
 
 class App extends Component {
@@ -20,6 +21,9 @@ class App extends Component {
                 <hr/>
                 <h1>4.Context</h1>
                 <Context/>
+                <hr/>
+                <h1>5.RenderProps</h1>
+                <Parent/>
             </div>
         )
     }

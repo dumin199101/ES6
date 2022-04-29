@@ -17,7 +17,7 @@ export default class Count2 extends Component {
     incrementIfOdd = () => {
         const {value} = this.selectNumber
         // 通过store获取数据
-        const count = store.getState()
+        const count = store.getState().counter
         if (count % 2 === 0) return
         store.dispatch(incrementAction(value * 1))
     }
@@ -32,7 +32,7 @@ export default class Count2 extends Component {
         return (
             <div>
                 <h1>Count计数器-redux版</h1>
-                <h1>当前求和为：{store.getState()}</h1>
+                <h1>当前求和为：{store.getState().counter}</h1>
                 <select ref={c => this.selectNumber = c}>
                     <option value="1">1</option>
                     <option value="2">2</option>

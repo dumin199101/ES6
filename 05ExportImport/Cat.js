@@ -1,3 +1,10 @@
+/**
+ * package.json 【npm项目管理】
+ * 创建方式: npm init -y
+ * 值为'module'则当作es模块处理；【浏览器环境】
+ * 值为'commonjs'则被当作commonJs模块处理，如果没有定义则默认commonJs规范处理【Node环境】
+ * export default 可以任意指定变量接收，但只允许有一次
+ */
 const cat = {
     name:"xiaohua",
     age:2,

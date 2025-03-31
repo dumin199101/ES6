@@ -22,26 +22,42 @@
     console.log(b.func)
     console.log(b.func())
 
-    // js中函数自身的作用域在声明的地方不在调用的地方,先去f2函数中找，找不到去全局找。
+    // 作用域链: 从当前函数的作用域开始，向外层作用域查找, js中函数自身的作用域在声明的地方不在调用的地方,先去f2函数中找，找不到去全局找。
     var v = 1;
     function f1(f2){
         var v = 2;
-        //回调函数
+        // 调用函数而非声明函数,注意同闭包的区别
         f2();
     }
 
     function f2() {
-        console.log(v);
+        console.log(v); // 使用的是v=1
     }
 
     f1(f2);
+
+    /**
+     * 块级作用域:
+     *   ES6新增let与const
+     *   let声明的变量在所在的代码块有效,let声明的变量只能声明一次，let声明的变量不存在变量提升
+     *   const声明的是只读的常量
+     *   var是在全局范围内有效
+     */
+    {
+        let aa = 11;
+        const PI = 3.14
+        var d = 33
+        console.log(aa)
+        console.log(PI)
+    }
+    console.log(d)
 
     //闭包:作用域链下，c变量常驻内存，未被释放
     var c = 1;
     function f3(f) {
         var c = 2;
         function f4() {
-            console.log(++c);
+            console.log(++c); // 使用的是c=2
         }
         return f4;
     }

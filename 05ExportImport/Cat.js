@@ -4,6 +4,7 @@
  * 值为'module'则当作es模块处理；【浏览器环境】
  * 值为'commonjs'则被当作commonJs模块处理，如果没有定义则默认commonJs规范处理【Node环境】
  * export default 可以任意指定变量接收，但只允许有一次
+ * import可以通过as关键字指定别名
  */
 const cat = {
     name:"xiaohua",

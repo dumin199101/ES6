@@ -8,6 +8,11 @@
    <button id="btn">点击我</button>
 </body>
 <script>
+    /**
+     * this指向：
+     *   普通函数：谁调用，指向谁
+     *   箭头函数：最近作用域中的this，原型对象及构造函数、DOM事件函数中不建议使用箭头函数
+     */
     class Person{
         constructor(name,age){
             this.name = name
